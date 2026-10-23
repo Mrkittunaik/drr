@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DRR Admin</title>
+<style>
+:root{--red:#B52A1C;--bg:#fff;--card:#fff;--ink:#161616;--mute:#6f6f6f;--line:#e5e5e5;--ok:#2f855a;--r:3px;color-scheme:light only}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans Telugu",system-ui,-apple-system,Roboto,sans-serif;font-size:14px;overflow-y:auto}
+button,input{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+#app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+.top{position:sticky;top:0;z-index:10;background:#000;color:#fff;height:calc(54px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 14px 0;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px}
+.logo b{background:#fff;color:var(--red);padding:2px 6px;border-radius:var(--r);font-size:12px}
+.pill{background:var(--red);padding:3px 8px;border-radius:var(--r);font-size:11px;font-weight:700}
+.back{display:flex;align-items:center;gap:6px;color:#fff;font-weight:700}
+main{padding:12px}
+h3{font-size:15px;margin:18px 0 8px;display:flex;justify-content:space-between;align-items:center}
+h3 small{color:var(--mute);font-weight:400;font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{padding:12px}
+.stat small{color:var(--mute);font-size:12px}
+.stat b{display:block;font-size:24px;margin-top:2px}
+.stat i{font-style:normal;font-size:11px;color:var(--ok);font-weight:700}
+.stat i.dn{color:var(--red)}
+.bars{display:flex;align-items:flex-end;gap:8px;height:100px;padding:14px 12px 8px}
+.bars div{flex:1;text-align:center;font-size:10px;color:var(--mute);display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.bars span{display:block;background:var(--red);border-radius:var(--r);margin-bottom:4px}
+.row{display:flex;gap:10px;align-items:center;padding:11px 12px;border-bottom:1px solid var(--line);width:100%;text-align:left}
+.row:last-child{border-bottom:0}
+.av{width:38px;height:38px;border-radius:var(--r);display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px;flex:none}
+.th{width:44px;height:44px;border-radius:var(--r);flex:none;display:grid;place-items:center;color:#fff;font-size:16px}
+.grow{flex:1;min-width:0}
+.t{font-weight:600;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.m{color:var(--mute);font-size:12px;margin-top:2px}
+.tag{font-size:10px;font-weight:700;padding:2px 6px;border-radius:var(--r);background:var(--line);color:var(--mute);margin-right:4px}
+.tag.r{background:var(--red);color:#fff}
+.tag.g{background:var(--ok);color:#fff}
+.rk{width:24px;font-weight:800;color:var(--red);font-size:16px;text-align:center;flex:none}
+.likes{font-weight:700;font-size:13px;white-space:nowrap}
+.more{display:block;width:100%;margin-top:8px;padding:11px;border:1px solid var(--red);color:var(--red);font-weight:700;border-radius:var(--r);background:var(--card)}
+.search{width:100%;padding:11px 12px;border:1px solid var(--line);background:var(--card);border-radius:var(--r);cursor:text}
+.seg{display:flex;gap:6px;margin-bottom:10px}
+.seg button{flex:1;padding:9px;border:1px solid var(--line);background:var(--card);border-radius:var(--r);font-weight:700;color:var(--mute)}
+.seg button.on{background:var(--red);border-color:var(--red);color:#fff}
+.prof{display:flex;gap:12px;align-items:center;padding:14px}
+.prof .av{width:56px;height:56px;font-size:20px}
+.empty{padding:24px;text-align:center;color:var(--mute)}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#000;display:flex;padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px));z-index:20}
+nav button{flex:1;color:#bbb;display:grid;justify-items:center;gap:2px;font-size:11px;padding:4px 0}
+nav button span{display:grid;place-items:center;height:26px;min-width:52px}
+nav button.on{color:#fff;font-weight:700}
+nav button.on span{background:var(--red);border-radius:var(--r);padding:0 14px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="top" id="top"></div>
+  <main id="main"></main>
+  <nav id="nav"></nav>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const COL=["#B52A1C","#2b6cb0","#2f855a","#6b46c1","#c05621","#0f766e"];
+const U=[["Venkat R","Medchal"],["Sana Fathima","Hyderabad"],["Ravi Teja","Warangal"],["Anita Sharma","Delhi"],["Kiran Kumar","Chintalakunta"],["Lakshmi P","Vijayawada"],["Suresh Babu","Guntur"],["Meena K","Nizamabad"]]
+.map((u,i)=>({id:i,name:u[0],loc:u[1],col:COL[i%6],joined:"Jan "+(i+3)+", 2026"}));
+const TT=["Heavy rain alert for Hyderabad","New metro line opens next month","Local MLA inaugurates road project","Star hero announces new film","Job fair: 500 vacancies in town","Cricket final tonight: match preview","Petrol price update today","Farmers get new subsidy scheme","College results released","Temple festival draws huge crowd","Water supply disrupted in 5 areas","Viral: street singer wins hearts"];
+const P=[];
+for(let i=0;i<36;i++){const u=U[(i*3)%8];P.push({id:i,uid:u.id,type:i%3===1?"Reel":"Article",title:TT[i%12]+(i>11?" #"+(i+1):""),likes:Math.round(((i*7919)%900)+40+(i%5)*210),views:Math.round(((i*6113)%9000)+800),hrs:i*3+1})}
+const D=[];
+const WHO=[["Admin","Admin"],["Moderator","Mod"],["Author","Self"]];
+const RS=["Fake news report","Duplicate post","Author removed","Copyright claim","Policy violation"];
+for(let i=0;i<14;i++){const p=P[(i*2+5)%36],w=WHO[i%3];D.push({title:p.title,type:p.type,by:w[0]==="Author"?U[p.uid].name:w[0]===" Admin"?"Admin":w[0]==="Moderator"?"Mod Ravi":"Admin",role:w[0],reason:RS[i%5],hrs:i*5+2,author:U[p.uid].name})}
+const ago=h=>h<24?h+"h ago":Math.floor(h/24)+"d ago";
+const fmt=n=>n>=1000?(n/1000).toFixed(1)+"K":n;
+const st={tab:"dash",user:null,ut:"All",tr:"Article",q:"",n:{dash:5,user:5,tr:5,del:5}};
+const IC={"dash": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 4h6v7H4zM14 4h6v4h-6zM14 12h6v8h-6zM4 15h6v5H4z\"/></svg>", "users": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"9\" cy=\"8\" r=\"3.2\"/><path d=\"M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M16 5a3 3 0 010 6M18 14c2 .7 3 2.5 3 6\"/></svg>", "trend": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8M15 7h6v6\"/></svg>", "del": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3\"/></svg>"};
+const NAV=[["dash",IC.dash,"Dashboard"],["users",IC.users,"Users"],["trend",IC.trend,"Trending"],["del",IC.del,"Deleted"]];
+const PLAY=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7z"/></svg>`,DOC=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6zM9 12h7M9 16h7M9 8h3"/></svg>`;
+
+function nav(){$("nav").innerHTML=NAV.map(n=>`<button class="${st.tab===n[0]?"on":""}" data-t="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join("");
+$("nav").querySelectorAll("button").forEach(b=>b.onclick=()=>{st.tab=b[`dataset`].t;st.user=null;st.q="";render();scrollTo(0,0)})}
+function hdr(){$("top").innerHTML=st.user!==null?`<button class="back" id="bk">← Users</button><span class="pill">USER</span>`:`<div class="logo"><b>DRR</b> Admin</div><span class="pill">ADMIN</span>`;
+if(st.user!==null)$("bk").onclick=()=>{st.user=null;render()}}
+const more=(k,len)=>st.n[k]<len?`<button class="more" data-k="${k}">Show more (${len-st.n[k]})</button>`:"";
+const postRow=(p,rank)=>`<div class="row">${rank?`<div class="rk">${rank}</div>`:""}<div class="th" style="background:${COL[p.id%6]}">${p.type==="Reel"?PLAY:DOC}</div><div class="grow"><div class="t">${p.title}</div><div class="m"><span class="tag ${p.type==="Reel"?"r":""}">${p.type}</span>${U[p.uid].name} · ${ago(p.hrs)}</div></div><div class="likes">♥ ${fmt(p.likes)}</div></div>`;
+
+function dash(){
+ const latest=[...P].sort((a,b)=>a.hrs-b.hrs);
+ const days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],v=[12,19,8,24,17,28,14],mx=Math.max(...v);
+ return `<div class="grid">
+ <div class="card stat"><small>Total users</small><b>${U.length*312}</b><i>▲ 4.2% this week</i></div>
+ <div class="card stat"><small>Articles</small><b>${P.filter(p=>p.type==="Article").length*41}</b><i>▲ 2.1%</i></div>
+ <div class="card stat"><small>Reels</small><b>${P.filter(p=>p.type==="Reel").length*37}</b><i>▲ 8.6%</i></div>
+ <div class="card stat"><small>Deleted</small><b>${D.length}</b><i class="dn">▼ needs review</i></div></div>
+ <h3>Posts this week <small>last 7 days</small></h3>
+ <div class="card bars">${v.map((x,i)=>`<div><span style="height:${x/mx*100}%"></span>${days[i]}</div>`).join("")}</div>
+ <h3>Latest posted <small>newest first</small></h3>
+ <div class="card">${latest.slice(0,st.n.dash).map(p=>postRow(p)).join("")}</div>${more("dash",latest.length)}`}
+
+function users(){
+ if(st.user!==null){
+  const u=U[st.user],all=P.filter(p=>p.uid===u.id).sort((a,b)=>a.hrs-b.hrs);
+  const list=st.ut==="All"?all:all.filter(p=>p.type===st.ut);
+  return `<div class="card prof"><div class="av" style="background:${u.col}">${u.name.split(" ").map(w=>w[0]).join("")}</div><div class="grow"><div class="t">${u.name}</div><div class="m">${u.loc} · Joined ${u.joined}</div></div></div>
+  <div class="grid" style="margin-top:8px"><div class="card stat"><small>Total posts</small><b>${all.length}</b></div><div class="card stat"><small>Total likes</small><b>${fmt(all.reduce((s,p)=>s+p.likes,0))}</b></div></div>
+  <h3>Posted by ${u.name.split(" ")[0]} <small>latest first</small></h3>
+  <div class="seg">${["All","Article","Reel"].map(t=>`<button class="${st.ut===t?"on":""}" data-ut="${t}">${t==="All"?"All":t+"s"}</button>`).join("")}</div>
+  <div class="card">${list.length?list.slice(0,st.n.user).map(p=>postRow(p)).join(""):'<div class="empty">No posts yet</div>'}</div>${more("user",list.length)}`}
+ const f=U.filter(u=>(u.name+u.loc).toLowerCase().includes(st.q.toLowerCase()));
+ return `<input class="search" id="q" placeholder="Search users..." value="${st.q}">
+ <h3>All users <small>${f.length} found</small></h3>
+ <div class="card">${f.map(u=>{const c=P.filter(p=>p.uid===u.id).length;return `<button class="row" data-u="${u.id}"><div class="av" style="background:${u.col}">${u.name.split(" ").map(w=>w[0]).join("")}</div><div class="grow"><div class="t">${u.name}</div><div class="m">${u.loc}</div></div><div class="likes">${c} posts ›</div></button>`}).join("")||'<div class="empty">No users found</div>'}</div>`}
+
+function trend(){
+ const l=P.filter(p=>p.type===st.tr).sort((a,b)=>b.likes-a.likes);
+ return `<div class="seg">${["Article","Reel"].map(t=>`<button class="${st.tr===t?"on":""}" data-tr="${t}">Trending ${t}s</button>`).join("")}</div>
+ <h3>Highest likes <small>${st.tr}s</small></h3>
+ <div class="card">${l.slice(0,st.n.tr).map((p,i)=>postRow(p,i+1)).join("")}</div>${more("tr",l.length)}`}
+
+function del(){
+ return `<h3 style="margin-top:4px">Deleted posts <small>${D.length} total</small></h3>
+ <div class="card">${D.slice(0,st.n.del).map(d=>`<div class="row"><div class="th" style="background:#6f6f6f">${IC.del}</div><div class="grow"><div class="t">${d.title}</div><div class="m"><span class="tag ${d.role==="Admin"?"r":d.role==="Moderator"?"":"g"}">${d.role}</span>Deleted by <b>${d.by}</b></div><div class="m">${d.type} by ${d.author} · ${d.reason} · ${ago(d.hrs)}</div></div></div>`).join("")}</div>${more("del",D.length)}`}
+
+function render(){
+ hdr();nav();
+ $("main").innerHTML=st.tab==="dash"?dash():st.tab==="users"?users():st.tab==="trend"?trend():del();
+ const m=$("main");
+ m.querySelectorAll(".more").forEach(b=>b.onclick=()=>{st.n[b.dataset.k]+=5;render()});
+ m.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{st.user=+b.dataset.u;st.ut="All";st.n.user=5;render();scrollTo(0,0)});
+ m.querySelectorAll("[data-ut]").forEach(b=>b.onclick=()=>{st.ut=b.dataset.ut;st.n.user=5;render()});
+ m.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>{st.tr=b.dataset.tr;st.n.tr=5;render()});
+ const q=$("q");if(q)q.oninput=()=>{st.q=q.value;const p=q.selectionStart;render();const n=$("q");n.focus();n.setSelectionRange(p,p)};
+}
+render();
+</script>
+</body>
+</html>
