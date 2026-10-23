@@ -150,6 +150,16 @@ nav button.on svg{stroke:#fff}
 .view.on:not(#news){animation:vin .28s cubic-bezier(.4,0,.2,1)}@keyframes vin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 nav button{-webkit-tap-highlight-color:transparent}nav button:active span{transform:scale(.92)}nav button span{transition:background .25s,transform .15s}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+#home.on{display:block}.car{flex:none;height:300px}.reels{flex:none;height:210px}nav em{font-style:normal}
+.tick{overflow:hidden;background:var(--red);color:#fff;font-size:13px;padding:7px 0;white-space:nowrap}.tick span{display:inline-block;padding-left:100%;animation:tk 40s linear infinite}@keyframes tk{to{transform:translateX(-100%)}}
+.rv{animation:rv .55s both}@keyframes rv{from{opacity:0;transform:translateY(18px)}}
+.tr{display:flex;gap:12px;overflow-x:auto;padding:0 16px 8px;scrollbar-width:none}.tc{flex:0 0 62%;background:var(--card);border-radius:12px;overflow:hidden;text-align:left;box-shadow:0 2px 8px #0002;transition:transform .2s}.tc:active{transform:scale(.96)}.tc i{display:block;height:100px;background-size:cover;background-position:center}.tc b{display:block;padding:8px 10px 2px;font-size:13px;line-height:1.4}.tc small{padding:0 10px 8px;display:block;color:var(--mute)}
+.gr{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 16px 8px}.gr button{background:var(--card);border-radius:12px;padding:12px 2px;font-size:11px;display:grid;gap:4px;justify-items:center;transition:transform .2s}.gr button span{font-size:24px}.gr button:active{transform:scale(.9)}
+.poll{margin:0 16px 12px;background:var(--card);border-radius:12px;padding:14px}.po{position:relative;display:block;width:100%;text-align:left;border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:8px;overflow:hidden}.po u{position:absolute;left:0;top:0;bottom:0;background:#B52A1C44;width:0;transition:width .8s}.po span,.po b{position:relative}
+.lay{position:absolute;inset:0;transition:transform .5s cubic-bezier(.4,0,.2,1),opacity .5s}
+.fm input,.fm textarea,.fm select{width:100%;margin-top:8px;padding:11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+.gb{width:100%;padding:13px;border-radius:99px;font-weight:700;margin-top:10px;border:1px solid var(--line);background:var(--card)}.gb.p{background:var(--red);color:#fff;border:0}
+.ft button{color:var(--red);font-weight:700;font-size:13px}.act button svg,.act .on svg{transition:transform .25s}.act button.on svg{transform:scale(1.25)}
 </style>
 </head>
 <body>
@@ -166,11 +176,11 @@ nav button{-webkit-tap-highlight-color:transparent}nav button:active span{transf
  <section class="view" id="post"></section>
 
  <nav id="nav">
-  <button data-t="home"><span><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></span>Home</button>
-  <button data-t="news"><span><svg viewBox="0 0 24 24"><path d="M4 4h13a1 1 0 011 1v15H6a2 2 0 01-2-2V4zM18 9h2v9a2 2 0 01-2 2M8 8h6M8 12h6M8 16h4"/></svg></span>News</button>
-  <button data-t="cats"><span><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg></span>Categories</button>
-  <button data-t="reelsV"><span><svg viewBox="0 0 24 24"><path d="M4 4h16a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1zM10 9l5 3-5 3z"/></svg></span>Reels</button>
-  <button data-t="local"><span><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg></span>Local</button>
+  <button data-t="home"><span><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></span><em>Home</em></button>
+  <button data-t="news"><span><svg viewBox="0 0 24 24"><path d="M4 4h13a1 1 0 011 1v15H6a2 2 0 01-2-2V4zM18 9h2v9a2 2 0 01-2 2M8 8h6M8 12h6M8 16h4"/></svg></span><em>News</em></button>
+  <button data-t="cats"><span><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg></span><em>Categories</em></button>
+  <button data-t="reelsV"><span><svg viewBox="0 0 24 24"><path d="M4 4h16a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1zM10 9l5 3-5 3z"/></svg></span><em>Reels</em></button>
+  <button data-t="local"><span><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg></span><em>Local</em></button>
  </nav>
 
  <div class="sheet" id="sh"><div class="panel" id="shp"></div></div>
@@ -193,6 +203,89 @@ const ST=[
 {t:"బ్రేకింగ్: మెట్రో సేవల్లో కొత్త మార్పులు",b:"మెట్రో రైళ్ల వేళల్లో కొత్త మార్పులు అమల్లోకి వచ్చాయి. వారాంతాల్లో అదనపు సేవలు నడుస్తాయని అధికారులు తెలిపారు.",r:0,im:3,c:"Local",m:"5h ago",s:"DRR News",v:0,lk:301,dk:11,cm:[],rp:14}
 ];
 const S={tab:"home",i:0,dark:false,notif:1,auto:0,loc:"Chintalakunta"};
+/*==== ADDED: config, state, features ====*/
+const CFG={firebase:null}; /* paste Firebase web config object here for real Gmail + phone OTP login */
+let VW=ST,FA=null,CR=null;
+Object.assign(S,{lang:"te",anim:"flip",user:null});
+ST.push(
+{t:"India clinch thrilling win in final over",b:"A last-over finish sent fans into celebration as the home side sealed the series.",r:2,im:1,c:"Sports",m:"25m ago",s:"DRR News",v:0,lk:910,dk:20,cm:[],rp:60},
+{t:"Sensex ends higher as IT and banking stocks rally",b:"Markets closed in the green with strong buying in technology and banking counters.",r:3,im:4,c:"Business",m:"1h ago",s:"DRR News",v:0,lk:210,dk:15,cm:[],rp:11},
+{t:"Tiger spotted near forest road, officials issue advisory",b:"Forest officials asked villagers to avoid night travel while teams monitor the animal.",r:4,im:5,c:"Wildlife",m:"2h ago",s:"DRR News",v:0,lk:455,dk:8,cm:[],rp:30},
+{t:"New AI tools help students learn in regional languages",b:"Startups are launching apps that explain lessons in Telugu, Hindi and other languages.",r:1,im:6,c:"Tech",m:"3h ago",s:"DRR News",v:0,lk:380,dk:9,cm:[],rp:22},
+{t:"ఉద్యోగ మేళా: 500 పోస్టులకు నియామకాలు",b:"జిల్లా కేంద్రంలో శనివారం జరిగే ఉద్యోగ మేళాలో పలు కంపెనీలు పాల్గొంటాయి.",r:0,im:2,c:"Jobs",m:"4h ago",s:"DRR News",v:0,lk:290,dk:3,cm:[],rp:40},
+{t:"Doctors advise simple habits to beat seasonal flu",b:"Drink water, rest well and wash hands often, health experts said.",r:2,im:3,c:"Health",m:"5h ago",s:"DRR News",v:0,lk:170,dk:2,cm:[],rp:10});
+CATS.length=0;
+[["News","Breaking news","News కొరకు","All","📰"],["Local News","Your town news","మీ ఊరి వార్తలకోసం","Local","📍"],["Politics","Leaders and parties","రాజకీయాలు","Politics","🏛"],["Cinema","Movies and stars","సినిమాలు","Cinema","🎬"],["Viral","Status cards","వైరల్","Viral","🔥"],["Local Jobs","Jobs near you","మీ దగ్గర్లో జాబ్స్","Jobs","💼"],["Sports","Scores and stars","క్రీడలు","Sports","🏏"],["Business","Markets and money","వ్యాపారం","Business","📈"],["Wild life","Nature and animals","వన్యప్రాణులు","Wildlife","🐯"],["Technology","Gadgets and AI","టెక్నాలజీ","Tech","💡"],["Health","Stay well","ఆరోగ్యం","Health","❤️"]].forEach(c=>CATS.push(c));
+const L={en:{home:"Home",news:"News",cats:"Categories",reels:"Reels",local:"Local",login:"Sign in",post:"Post news",tr:"Translate",lang:"Choose your language",trend:"TRENDING NOW",cat:"CATEGORIES",poll:"POLL OF THE DAY",out:"Sign out",srch:"Search keyword ex: Modi, Sports, Stocks",anim:"Page animation"},
+te:{home:"హోమ్",news:"వార్తలు",cats:"వర్గాలు",reels:"రీల్స్",local:"లోకల్",login:"లాగిన్",post:"వార్త పంపండి",tr:"అనువాదం",lang:"మీ భాషను ఎంచుకోండి",trend:"ట్రెండింగ్",cat:"వర్గాలు",poll:"నేటి పోల్",out:"లాగౌట్",srch:"వెతకండి: మోదీ, క్రీడలు",anim:"పేజీ యానిమేషన్"},
+hi:{home:"होम",news:"समाचार",cats:"श्रेणियाँ",reels:"रील्स",local:"स्थानीय",login:"साइन इन",post:"खबर भेजें",tr:"अनुवाद",lang:"अपनी भाषा चुनें",trend:"ट्रेंडिंग",cat:"श्रेणियाँ",poll:"आज का पोल",out:"साइन आउट",srch:"खोजें: मोदी, खेल",anim:"पेज एनिमेशन"}};
+const T=k=>(L[S.lang]&&L[S.lang][k])||L.en[k]||k;
+const LN={en:"English",te:"తెలుగు",hi:"हिन्दी"};
+const sv=()=>{try{localStorage.setItem("drr",JSON.stringify({user:S.user,lang:S.lang,anim:S.anim,posts:ST.filter(p=>p.own).slice(0,4)}))}catch(e){}};
+try{const d=JSON.parse(localStorage.getItem("drr")||"{}");if(d.user)S.user=d.user;if(d.lang)S.lang=d.lang;if(d.anim)S.anim=d.anim;(d.posts||[]).reverse().forEach(p=>ST.unshift(p))}catch(e){}
+function nv(){document.querySelectorAll("#nav em").forEach((e,i)=>e.textContent=T(["home","news","cats","reels","local"][i]))}
+function rerender(){nv();home();cats();menu();settings();post();topbar()}
+/* auth */
+function fbInit(){return new Promise(r=>{if(FA)return r(FA);const ld=u=>new Promise(k=>{const s=document.createElement("script");s.src=u;s.onload=k;document.head.appendChild(s)});ld("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js").then(()=>ld("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js")).then(()=>{firebase.initializeApp(CFG.firebase);FA=firebase.auth();r(FA)})})}
+function done(u){S.user=u;sv();close();menu();toast("Signed in: "+(u.name||u.phone));}
+function need(fn){S.user?fn():loginSheet()}
+function loginSheet(){
+ sheet(`<div class="ph"><span>${T("login")}</span><button data-x aria-label="Close">✕</button></div><div class="fm" style="padding:16px"><button class="gb" id="gg"><b style="color:#4285F4">G</b> Continue with Gmail</button><div style="text-align:center;color:var(--mute);margin:12px 0">or</div><input id="ph" type="tel" placeholder="+91 phone number"><button class="gb p" id="so">Send OTP</button><div id="rc"></div><div id="otp"></div>${CFG.firebase?"":'<p style="font-size:12px;color:var(--mute);margin-top:10px">Demo mode: add Firebase config in CFG for real login. Demo OTP is 123456.</p>'}</div>`);
+ $("gg").onclick=()=>CFG.firebase?fbInit().then(a=>a.signInWithPopup(new firebase.auth.GoogleAuthProvider())).then(r=>done({name:r.user.displayName,email:r.user.email,via:"google"})).catch(e=>toast(e.message)):done({name:"Demo User",email:"demo@gmail.com",via:"google"});
+ $("so").onclick=()=>{let v=$("ph").value.replace(/[^\d+]/g,"");if(v.replace(/\D/g,"").length<10)return toast("Enter a valid number");if(v[0]!=="+")v="+91"+v.slice(-10);
+  const ui=()=>{$("otp").innerHTML='<input id="oc" inputmode="numeric" placeholder="Enter OTP"><button class="gb p" id="vo">Verify</button>';$("vo").onclick=()=>{const c=$("oc").value.trim();CR?CR.confirm(c).then(()=>done({name:v,phone:v,via:"phone"})).catch(()=>toast("Wrong OTP")):c==="123456"?done({name:v,phone:v,via:"phone"}):toast("Wrong OTP")}};
+  CFG.firebase?fbInit().then(a=>{window.rv=window.rv||new firebase.auth.RecaptchaVerifier("rc",{size:"invisible"});return a.signInWithPhoneNumber(v,window.rv)}).then(c=>{CR=c;ui()}).catch(e=>toast(e.message)):ui()}}
+/* upload */
+function rs(f,cb){const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{const k=Math.min(1,800/i.width),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;c.getContext("2d").drawImage(i,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",.7))};i.src=r.result};r.readAsDataURL(f)}
+function upSheet(){
+ sheet(`<div class="ph"><span>${T("post")}</span><button data-x aria-label="Close">✕</button></div><div class="fm" style="padding:16px;overflow:auto"><input id="ut" placeholder="Headline"><textarea id="ub" rows="4" placeholder="Details"></textarea><select id="uc">${CATS.slice(1).map(c=>`<option value="${c[3]}">${c[0]}</option>`).join("")}</select><input id="uf" type="file" accept="image/*"><button class="gb p" id="us">Publish</button></div>`);
+ $("us").onclick=()=>{const t=$("ut").value.trim(),b=$("ub").value.trim();if(!t||!b)return toast("Add headline and details");const go=img=>{ST.unshift({t,b,r:0,im:0,img,c:$("uc").value,m:"Just now",s:S.user.name||"Reporter",v:0,lk:0,dk:0,cm:[],rp:0,own:1});VW=ST;S.i=0;sv();close();show("news");draw();toast("Published")};const f=$("uf").files[0];f?rs(f,go):go()}}
+/* translate */
+async function trs(p){const src=/[\u0C00-\u0C7F]/.test(p.t)?"te":/[\u0900-\u097F]/.test(p.t)?"hi":"en";if(src===S.lang)return toast("Already in "+LN[S.lang]);toast("Translating…");
+ try{const q=async x=>(await(await fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(x.slice(0,450))+"&langpair="+src+"|"+S.lang)).json()).responseData.translatedText;p.tt=await q(p.t);p.tb=await q(p.b);draw()}catch(e){toast("Translate failed")}}
+/* filters */
+function setCat(k,l){l=l||(k==="All"?ST:ST.filter(s=>s.c===k));if(!l.length)return toast("No stories yet");VW=l;S.i=0;close();show("news");draw()}
+/* overrides */
+function home(){const tr=[...ST].sort((a,b)=>b.lk-a.lk).slice(0,6);
+ $("home").innerHTML=`<div class="tick"><span>${ST.slice(0,6).map(s=>"● "+s.t).join("      ")}</span></div>
+ <div class="car rv" id="car">${CATS.map((c,i)=>`<button class="cx" data-cat="${c[3]}"><div class="bn" style="background:linear-gradient(#0003,#000a),#111 url(${IMG[CI[i%CI.length]]}) center/cover"><span class="bd"><b>${i+1}</b> of ${CATS.length}</span><span style="position:absolute;right:12px;bottom:8px;font-size:34px">${c[4]}</span></div><div class="ct"><b>${c[0]}</b><span>${c[2]}</span><i>${c[1]} ›</i></div></button>`).join("")}</div>
+ <div class="dots" id="dots">${CATS.map((_,i)=>`<i class="${i?"":"on"}"></i>`).join("")}</div>
+ <div class="sec">${T("trend")}</div><div class="tr rv">${tr.map(s=>`<button class="tc" data-st="${ST.indexOf(s)}"><i style="background-image:url(${s.img||IMG[s.im]})"></i><b>${s.t.slice(0,60)}</b><small>👍 ${s.lk} · ${s.m}</small></button>`).join("")}</div>
+ <div class="sec">${T("cat")}</div><div class="gr rv">${CATS.slice(0,8).map(c=>`<button data-cat="${c[3]}"><span>${c[4]}</span>${c[0]}</button>`).join("")}</div>
+ <div class="sec">${T("poll")}</div><div class="poll rv"><b>Will you read news in your own language daily?</b>${[["Yes",56],["No",30],["Sometimes",14]].map(([o,v])=>`<button class="po" data-poll="${v}"><u></u><span>${o}</span><b class="pv" style="float:right"></b></button>`).join("")}</div>
+ <div class="sec">NEWS REELS</div><div class="reels" style="padding-bottom:8px">${["20m ago","12:04 PM","11:15 AM","10:30 AM"].map((t,i)=>`<button class="rl" data-go="reelsV"><div style="background:#111 url(${IMG[RI[i]]}) center/cover">▶</div><div>${["ఫౌజీలో ప్రభాస్ ఎవరు?","నేటి ముఖ్యాంశాలు","జాబ్స్ అప్‌డేట్","క్రీడా వార్తలు"][i]}<small>◷ ${t}</small></div></button>`).join("")}</div>`;
+ const car=$("car");car.onscroll=()=>{const k=Math.round(car.scrollLeft/(car.clientWidth*.86+12));[...$("dots").children].forEach((d,j)=>d.classList.toggle("on",j===k))}}
+function catSheet(){sheet(`<div class="ph"><span>${T("cats")}</span><button data-x aria-label="Close">✕</button></div><div class="catl">${CATS.map(c=>`<button data-cat="${c[3]}">${c[4]} ${c[0]}<b>›</b></button>`).join("")}</div>`)}
+function cats(){$("cats").innerHTML=`<div class="srch"><b>Search</b><input id="q" placeholder="${T("srch")}"></div><div class="card"><b>Select stories before</b><div style="color:var(--mute);font-size:13px">Between last 24 hours</div></div><div class="ch">${[1,2,4,8,12,16,20,24].map(h=>`<button data-chip>${h} hour${h>1?"s":""}</button>`).join("")}</div>${CATS.map(c=>`<button class="row" data-cat="${c[3]}">${c[4]} ${c[0]}<b>›</b></button>`).join("")}`}
+function menu(){const u=S.user;
+ $("menu").innerHTML=`<div class="guest"><div class="av">${u?ini(u.name||"U"):"☺"}</div><div><b style="font-size:22px">${u?(u.name||u.phone):"Guest"}</b><div>${u?`<span style="color:var(--mute)">${u.email||u.phone||""}</span> <a data-lo>${T("out")}</a>`:`<a data-lg>Click here</a> <span style="color:var(--mute)">to sign in</span>`}</div></div></div>
+ <button class="row pick" data-lang><span><small>${T("lang")}</small><strong>${LN[S.lang]}</strong></span><b>→</b></button>
+ <button class="row pick" data-sh="loc"><span><small>Your selected place</small><strong>${S.loc} (Change)</strong></span><b>→</b></button>
+ <div class="row lk" style="margin-top:8px"><span>Fact Check</span><b>CHECK NOW</b></div><div class="row lk"><span>Referral</span><b>REFER NOW</b></div>
+ <button class="row" data-up>${T("post")}<b>›</b></button><button class="row" data-go="post">Reporter &amp; Ads<b>›</b></button><button class="row" data-go="settings">Settings<b>›</b></button>
+ <button class="row" data-toast="Thanks for the feedback">Feedback<b>›</b></button><button class="row" data-toast="Contact us">Contact us<b>›</b></button>`}
+function settings(){$("settings").innerHTML=`<div class="card" style="display:flex;justify-content:space-between"><b style="font-size:26px">Settings</b><span>App version 1.1</span></div>
+ <div class="set">${[["Notifications","notif"],["Video autoplay","auto"],["Night mode","dark"],["Local stories","ls"]].map(([l,k])=>`<div>${l}<div class="sw ${(k==="dark"?S.dark:k==="ls"?1:S[k])?"on":""}" role="switch" tabindex="0" data-sw="${k}"></div></div>`).join("")}</div>
+ <div class="card"><b>${T("anim")}</b><div class="ch" style="padding:10px 0 0">${["flip","slide","fade","zoom"].map(a=>`<button data-anim="${a}" class="${S.anim===a?"on":""}">${a}</button>`).join("")}</div></div>
+ <button class="row" data-lang>${T("lang")}<b>${LN[S.lang]}</b></button><button class="row" data-toast="Cache cleared">Clear cache<b>⌫</b></button><button class="row">Privacy policy<b>›</b></button>`}
+function post(){$("post").innerHTML=`<div class="card"><b style="font-size:22px">Post</b></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px 12px"><button class="cc" data-up style="height:260px;flex:none;background:linear-gradient(160deg,#7a1a10,#000)"><span class="n">1</span><h4 style="font-size:22px;bottom:70px">${T("post")}</h4><u>Upload ›</u></button><button class="cc" data-toast="Advertise with DRR News" style="height:260px;flex:none;background:linear-gradient(160deg,#333,#000)"><span class="n">2</span><h4 style="font-size:22px;bottom:70px">Advertise with us</h4><u>Know how ›</u></button></div>`}
+function shareSheet(){const p=VW[S.i],u=encodeURIComponent(location.href),t=encodeURIComponent(p.t);
+ const W={"WhatsApp":"https://wa.me/?text="+t+"%20"+u,"X Share":"https://twitter.com/intent/tweet?text="+t+"&url="+u,"Facebook":"https://www.facebook.com/sharer/sharer.php?u="+u,"Telegram":"https://t.me/share/url?url="+u+"&text="+t};
+ sheet(`<div class="ph"><span>Share</span><button data-x aria-label="Close">✕</button></div><div class="ch">${Object.keys(W).map(x=>`<button data-open="${W[x]}">${x}</button>`).join("")}<button data-copy>Copy Link</button></div><button class="opt" data-toast="Report sent">⚠<span>Report Story<small>Help us improve</small></span></button>`)}
+document.getElementById("app").addEventListener("click",e=>{const g=k=>e.target.closest("["+k+"]");let x;
+ if(x=g("data-cat"))setCat(x.dataset.cat);
+ else if(x=g("data-st")){VW=ST;S.i=+x.dataset.st;show("news");draw()}
+ else if(g("data-lg"))loginSheet();else if(g("data-lo")){S.user=null;sv();menu()}
+ else if(g("data-up")){close();need(upSheet)}
+ else if(g("data-lang"))sheet(`<div class="ph"><span>${T("lang")}</span><button data-x aria-label="Close">✕</button></div>${Object.keys(LN).map(k=>`<button class="opt" data-setlang="${k}">${LN[k]}</button>`).join("")}`);
+ else if(x=g("data-setlang")){S.lang=x.dataset.setlang;sv();close();rerender()}
+ else if(x=g("data-anim")){S.anim=x.dataset.anim;sv();settings();toast("Animation: "+S.anim)}
+ else if(x=g("data-open"))window.open(x.dataset.open,"_blank");
+ else if(g("data-copy")){navigator.clipboard&&navigator.clipboard.writeText(location.href);toast("Link copied")}
+ else if(x=g("data-poll")){const pl=x.parentElement;pl.querySelectorAll(".po").forEach(b=>{b.querySelector("u").style.width=b.dataset.poll+"%";b.querySelector(".pv").textContent=b.dataset.poll+"%"})}});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="q"){const q=e.target.value.trim().toLowerCase();if(q)setCat("",ST.filter(s=>(s.t+" "+s.b).toLowerCase().includes(q)))}});
+/*==== END ADDED ====*/
+
 const I={up:'<svg viewBox="0 0 24 24"><path d="M7 11v9H3v-9zM7 11l4-8c1.5 0 2.5 1 2.5 2.5V9H20a1.5 1.5 0 011.5 1.8l-1.6 8A2 2 0 0118 20H7"/></svg>',dn:'<svg viewBox="0 0 24 24"><path d="M17 13V4h4v9zM17 13l-4 8c-1.5 0-2.5-1-2.5-2.5V15H4a1.5 1.5 0 01-1.5-1.8l1.6-8A2 2 0 016 4h11"/></svg>',cm:'<svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.5 7.2L3 21l1.8-6A8 8 0 1121 12z"/></svg>',rp:'<svg viewBox="0 0 24 24"><path d="M17 2l4 4-4 4M3 11V9a3 3 0 013-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 01-3 3H3"/></svg>',sh:'<svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>'};
 const ini=n=>n.split(" ").map(x=>x[0]).join("").slice(0,2);
 function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(toast.h);toast.h=setTimeout(()=>e.classList.remove("show"),1600)}
@@ -221,11 +314,11 @@ function pages(){
 }
 function pg(p,i){
  const r=REP[p.r],g=G[p.r].split(",");
- return `<article class="pg" data-i="${i}"><div class="img" style="background:url(${IMG[p.im]}) center/cover no-repeat,${g[0]}">
+ return `<article class="pg" data-i="${i}"><div class="img" style="background:url(${p.img||IMG[p.im]}) center/cover no-repeat,${g[0]}">
   ${p.v?'<div class="play">▶</div>':""}
   <span class="src">${p.s}</span></div>
-  <div class="tx"><h2>${p.t}</h2><p>${p.b}</p></div>
-  <div class="ft"><span>◷ <b>${p.m}</b></span><span>${i+1} of ${ST.length} <small>Pages</small></span></div>
+  <div class="tx"><h2>${p.tt||p.t}</h2><p>${p.tb||p.b}</p></div>
+  <div class="ft"><span>◷ <b>${p.m}</b> <button data-a="tr">🌐 ${T("tr")}</button></span><span>${i+1} of ${VW.length} <small>Pages</small></span></div>
   <div class="act">
    <button data-a="up" class="${p.u?"on":""}">${I.up}${p.lk+(p.u?1:0)}</button>
    <button data-a="dn" class="${p.d?"on":""}">${I.dn}${p.dk+(p.d?1:0)}</button>
@@ -235,12 +328,14 @@ function pg(p,i){
   </div></article>`;
 }
 let busy=0;
-function half(i,part,cls){return `<div class="hf ${part} ${cls||""}"><div class="in ${part}">${pg(ST[i],i)}</div></div>`}
+function half(i,part,cls){return `<div class="hf ${part} ${cls||""}"><div class="in ${part}">${pg(VW[i],i)}</div></div>`}
 function draw(){$("fold").innerHTML=half(S.i,"t")+half(S.i,"b")}
 function go(d){
- const n=S.i+d;if(busy||n<0||n>=ST.length)return;busy=1;
+ const n=S.i+d;if(busy||n<0||n>=VW.length)return;busy=1;
  const h=$("hint");if(h)h.style.display="none";bars(false);
  const f=$("fold"),dn=d<0;
+ if(S.anim!=="flip"){const A={slide:[d>0?"translateY(-100%)":"translateY(100%)",d>0?"translateY(100%)":"translateY(-100%)"],fade:["none","none"],zoom:["scale(1.2)","scale(.8)"]}[S.anim];
+  f.innerHTML=`<div class="lay" id="l1">${pg(VW[S.i],S.i)}</div><div class="lay" id="l2">${pg(VW[n],n)}</div>`;const a=$("l1"),b=$("l2");b.style.transform=A[1];b.style.opacity=S.anim==="slide"?1:0;void b.offsetWidth;a.style.transform=A[0];if(S.anim!=="slide")a.style.opacity=0;b.style.transform="none";b.style.opacity=1;setTimeout(()=>{S.i=n;draw();busy=0},520);return}
  f.innerHTML=dn?half(n,"t")+half(S.i,"b")+`<div class="fl dn">${half(S.i,"t","face")}${half(n,"b","face bk")}</div>`:half(S.i,"t")+half(n,"b")+`<div class="fl up">${half(S.i,"b","face")}${half(n,"t","face bk")}</div>`;
  const fl=f.querySelector(".fl");void fl.offsetWidth;fl.classList.add("go");
  setTimeout(()=>{S.i=n;draw();busy=0},640);
@@ -252,17 +347,18 @@ let wl=0;$("news").addEventListener("wheel",e=>{const t=Date.now();if(t-wl<600)r
 document.addEventListener("keydown",e=>{if(S.tab==="news"){if(e.key==="ArrowDown")go(1);if(e.key==="ArrowUp")go(-1)}});
 $("news").addEventListener("click",e=>{
  const b=e.target.closest("button[data-a]");if(!b)return;
- const p=ST[S.i],a=b.dataset.a;
+ const p=VW[S.i],a=b.dataset.a;
  if(a==="up"){p.u=!p.u;if(p.u)p.d=0}else if(a==="dn"){p.d=!p.d;if(p.d)p.u=0}
  else if(a==="rp"){p.rpd=!p.rpd;toast(p.rpd?"Reposted":"Repost removed")}
- else if(a==="cm"){comments();return}
- else if(a==="wa"||a==="sh"){shareSheet();return}
+ else if(a==="tr"){trs(p);return}
+ else if(a==="cm"){need(comments);return}
+ else if(a==="wa"){window.open("https://wa.me/?text="+encodeURIComponent(p.t+" "+location.href));return}else if(a==="sh"){shareSheet();return}
  draw();
 });
 /* SHEETS */
 function sheet(h){$("shp").innerHTML=h;$("sh").classList.add("on")}
 function close(){$("sh").classList.remove("on")}
-function comments(){const p=ST[S.i];
+function comments(){const p=VW[S.i];
  sheet(`<div class="ph"><span>Comments (${p.cm.length})</span><button data-x aria-label="Close">✕</button></div><div class="list">${p.cm.length?p.cm.map((c,k)=>`<div class="cm"><div class="av" style="background:${REP[(k+2)%5][1]}">${ini(REP[(k+2)%5][0])}</div><div><b>${REP[(k+2)%5][0]}</b><small>${c}</small></div></div>`).join(""):'<p style="color:var(--mute);text-align:center;padding:30px 0">No comments yet. Start the conversation.</p>'}</div><div class="add"><input id="ci" placeholder="Write a comment"><button id="cs">Post</button></div>`);
  $("cs").onclick=()=>{const v=$("ci").value.trim();if(!v)return;p.cm.push(v);comments();draw()};
 }
@@ -340,7 +436,7 @@ function locSheet(){sheet(`<div class="ph"><span>Change location</span><button d
 $("shp").addEventListener("click",e=>{const l=e.target.closest("[data-loc]");if(l){S.loc=l.dataset.loc;close();local();menu();topbar();toast("Location: "+S.loc)}});
 $("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)show(b.dataset.t)});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
-home();pages();cats();reelsV();local();menu();settings();post();
+nv();home();pages();cats();reelsV();local();menu();settings();post();
 function bars(show){
  const on=S.tab==="news";
  $("top").classList.toggle("hid",on&&!show);$("nav").classList.toggle("hid",on&&!show);$("news").classList.toggle("fs",on&&!show);
