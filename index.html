@@ -12,7 +12,7 @@
 html,body{height:100%;background:#000;font-family:"Noto Sans Telugu","Noto Sans Devanagari",system-ui,-apple-system,Roboto,sans-serif;color:var(--ink);overflow:hidden}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-#app{position:relative;max-width:480px;height:100%;margin:0 auto;background:var(--bg);overflow:hidden}
+#app{position:relative;max-width:480px;height:100%;margin:0 auto;background:#000;overflow:hidden}
 .top{position:absolute;top:0;left:0;right:0;z-index:20;height:54px;padding-top:env(safe-area-inset-top,0px);display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#000;color:#fff}
 .top.glass{background:linear-gradient(#000a,#0000)}
 .ic{width:34px;height:34px;display:grid;place-items:center;font-size:20px;border:2px solid #fff;border-radius:8px;line-height:1}
@@ -23,10 +23,12 @@ button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 .tg button{color:#fff;padding:7px 18px;border-radius:99px;font-weight:700;font-size:14px}
 .tg button.on{background:#fff3}
 .badge{background:var(--red);border-radius:99px;padding:1px 7px;font-size:12px;margin-left:5px}
-.view{position:absolute;inset:0;padding-top:calc(54px + env(safe-area-inset-top,0px));padding-bottom:calc(66px + env(safe-area-inset-bottom,0px));display:none;overflow:auto;background:var(--bg)}
+.view{position:absolute;inset:0;padding-top:calc(54px + env(safe-area-inset-top,0px));padding-bottom:calc(92px + env(safe-area-inset-bottom,0px));display:none;overflow:auto;background:var(--bg)}
 .view.on{display:block}
+#home,#cats{bottom:calc(84px + env(safe-area-inset-bottom,0px));padding-bottom:16px;border-radius:0 0 18px 18px}
 #news{padding:0;overflow:hidden;background:#000}
-.fold{position:absolute;left:0;right:0;top:0;bottom:calc(66px + env(safe-area-inset-bottom,0px));perspective:1500px;background:var(--card);border-radius:0 0 18px 18px;overflow:hidden}
+.fold{position:absolute;left:0;right:0;top:0;bottom:calc(86px + env(safe-area-inset-bottom,0px));perspective:1500px;background:var(--card);border-radius:0 0 18px 18px;overflow:hidden;transition:bottom .4s cubic-bezier(.4,0,.2,1)}
+#news.fs .fold{bottom:0;border-radius:0}
 
 .hf{position:absolute;left:0;right:0;height:50%;overflow:hidden;background:var(--card)}
 .hf.t{top:0}.hf.b{bottom:0}
@@ -39,10 +41,13 @@ button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 .fl .hf{top:0;bottom:auto;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .fl .hf.bk{transform:rotateX(180deg)}
 .fl .hf:after{content:"";position:absolute;inset:0;background:linear-gradient(#0000,#0003);pointer-events:none}
-.alt{position:absolute;left:0;right:0;bottom:0;z-index:30;background:#000;color:#fff;display:none;align-items:center;justify-content:space-between;padding:8px 22px calc(8px + env(safe-area-inset-bottom,0px))}
+.alt{position:absolute;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:30;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(255,255,255,.14);border-radius:5px;box-shadow:0 8px 24px rgba(0,0,0,.35);color:#fff;display:none;align-items:center;justify-content:space-between;padding:8px 20px;transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s}
+.alt.hid{transform:translateY(130%);opacity:0;pointer-events:none}
+.top{transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s}
+.top.hid{transform:translateY(-100%);opacity:0;pointer-events:none}
 .alt>button{display:grid;justify-items:center;font-size:24px;line-height:1.1;color:#fff}
 .alt small{font-size:11px;color:#ddd}
-.alt .mid{display:block;border:1px solid #fff5;border-radius:99px;padding:13px 28px;font-size:15px;font-weight:700;background:#161616}
+.alt .mid{display:block;border:1px solid rgba(255,255,255,.25);border-radius:5px;padding:12px 26px;font-size:15px;font-weight:700;background:rgba(255,255,255,.1)}
 #news.on{display:block}
 .pg{position:absolute;inset:0;background:var(--card);transform-origin:top;transition:transform .45s cubic-bezier(.5,0,.2,1),opacity .45s;backface-visibility:hidden;display:flex;flex-direction:column}
 .pg.out{transform:rotateX(-100deg);opacity:0;pointer-events:none}
@@ -68,18 +73,18 @@ button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 .act .wa{position:relative;top:-14px;width:56px;height:56px;border-radius:50%;background:#25D366;border:4px solid var(--card);display:grid;place-items:center;justify-self:center;color:#fff;padding:0}
 .act .wa svg{width:30px;height:30px;fill:#fff;stroke:none}
 .hint{position:absolute;right:10px;bottom:76px;z-index:3;font-size:11px;background:#0007;color:#fff;padding:4px 8px;border-radius:99px}
-nav{position:absolute;left:0;right:0;bottom:0;z-index:30;background:#000;color:#fff;display:flex;padding:7px 0 calc(7px + env(safe-area-inset-bottom,0px))}
-nav button{flex:1;display:grid;justify-items:center;gap:2px;font-size:11px;color:#ddd}
-nav button span{font-size:21px;width:46px;height:34px;display:grid;place-items:center;border-radius:99px}
+nav{position:absolute;left:0;right:0;bottom:0;z-index:30;background:#000;color:#fff;display:flex;padding:10px 0 calc(8px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;display:grid;justify-items:center;gap:3px;font-size:13px;color:#e6e6e6}
+nav button span{font-size:21px;width:66px;height:46px;display:grid;place-items:center;border-radius:99px;transition:background .25s}
 nav button.on span{background:#2a2a2a;border:1px solid #444}
 nav button.on{color:#fff;font-weight:700}
-nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav button.on svg{stroke:#fff}
 .sec{font-weight:800;text-align:center;margin:20px 0 12px;font-size:16px;display:flex;align-items:center;gap:12px;padding:0 16px}
 .sec:before,.sec:after{content:"";flex:1;height:1px;background:var(--line)}
 .car{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 16px 4px;scrollbar-width:none}
 .car::-webkit-scrollbar{display:none}
-.cx{flex:0 0 86%;height:300px;border-radius:18px;scroll-snap-align:center;overflow:hidden;background:#111;display:flex;flex-direction:column;text-align:left;color:#fff;border:1px solid #2a2a2a}
+.cx{flex:0 0 86%;height:300px;border-radius:9px;scroll-snap-align:center;overflow:hidden;background:#111;display:flex;flex-direction:column;text-align:left;color:#fff;border:1px solid #2a2a2a}
 .cx .bn{flex:0 0 62%;position:relative;border-bottom:3px solid #f5a623}
 .cx .bd{position:absolute;left:10px;top:10px;background:#000b;border-radius:99px;padding:4px 12px;font-size:13px;font-weight:700}
 .cx .bd b{color:#f5a623;font-size:16px}
@@ -96,7 +101,7 @@ nav button.on svg{stroke:#fff}
 .dots{display:flex;gap:7px;justify-content:center;margin-top:12px}
 .dots i{width:10px;height:10px;border-radius:50%;background:#bbb}.dots i.on{background:var(--ink);width:24px;border-radius:6px}
 .reels{display:flex;gap:12px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
-.rl{flex:0 0 46%;aspect-ratio:9/13;border-radius:10px;overflow:hidden;position:relative;color:#fff;display:flex;flex-direction:column}
+.rl{flex:0 0 46%;aspect-ratio:9/13;border-radius:9px;overflow:hidden;position:relative;color:#fff;display:flex;flex-direction:column}
 .rl div:first-child{flex:1;display:grid;place-items:center;font-size:44px}
 .rl div:last-child{background:#111;padding:10px;font-size:13px;line-height:1.4;border-top:3px solid #f5a623;min-height:42%}
 .rl small{display:block;color:#bbb;margin-top:6px}
@@ -185,12 +190,13 @@ const I={up:'<svg viewBox="0 0 24 24"><path d="M7 11v9H3v-9zM7 11l4-8c1.5 0 2.5 
 const ini=n=>n.split(" ").map(x=>x[0]).join("").slice(0,2);
 function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(toast.h);toast.h=setTimeout(()=>e.classList.remove("show"),1600)}
 function logo(){return `<div class="logo"><i><b>D</b><b>R</b><b>R</b></i>NEWS</div>`}
+const PIC='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>';
 function topbar(){
  const t=$("top");
- if(S.tab==="news"){t.className="top glass";t.innerHTML=`<button class="ic" data-go="menu" aria-label="Profile">☺</button><div class="tg"><button class="on">News</button><button data-m="unread">Unread<span class="badge">${ST.length}</span></button></div><button class="ic" data-sh="cats" aria-label="Categories">+</button>`}
+ if(S.tab==="news"){t.className="top glass";t.innerHTML=`<button class="ic" data-go="menu" aria-label="Profile">${PIC}</button><div class="tg"><button class="on">News</button><button data-m="unread">Unread<span class="badge">${ST.length}</span></button></div><button class="ic" data-sh="cats" aria-label="Categories">+</button>`}
  else if(["menu","settings","post"].includes(S.tab)){t.className="top";t.style.background="var(--card)";t.innerHTML=`<button class="ic" style="border-color:var(--ink);color:var(--ink)" data-go="home" aria-label="Back">←</button><b style="color:var(--ink)">${{menu:"Menu",settings:"Settings",post:"Post"}[S.tab]}</b><button class="ic" style="border-color:var(--ink);color:var(--ink)" data-go="home" aria-label="Home">⌂</button>`}
- else if(S.tab==="local"){t.className="top glass";t.style.background="";t.innerHTML=`<button class="ic" data-go="menu">☺</button><div class="tg"><button data-go="news">News</button><button class="on">${S.loc}</button></div><button class="ic" data-sh="cats">+</button>`}
- else{t.className="top";t.style.background="#000";t.innerHTML=`<button class="ic" data-go="menu" aria-label="Profile">☺</button>${logo()}<button class="ic" data-sh="cats" aria-label="Categories">+</button>`}
+ else if(S.tab==="local"){t.className="top glass";t.style.background="";t.innerHTML=`<button class="ic" data-go="menu" aria-label="Profile">${PIC}</button><div class="tg"><button data-go="news">News</button><button class="on">${S.loc}</button></div><button class="ic" data-sh="cats">+</button>`}
+ else{t.className="top";t.style.background="#000";t.innerHTML=`<button class="ic" data-go="menu" aria-label="Profile">${PIC}</button>${logo()}<button class="ic" data-sh="cats" aria-label="Categories">+</button>`}
 }
 /* HOME */
 function home(){
@@ -226,7 +232,7 @@ function half(i,part,cls){return `<div class="hf ${part} ${cls||""}"><div class=
 function draw(){$("fold").innerHTML=half(S.i,"t")+half(S.i,"b")}
 function go(d){
  const n=S.i+d;if(busy||n<0||n>=ST.length)return;busy=1;
- const h=$("hint");if(h)h.style.display="none";
+ const h=$("hint");if(h)h.style.display="none";bars(false);
  const f=$("fold"),dn=d<0;
  f.innerHTML=dn?half(n,"t")+half(S.i,"b")+`<div class="fl dn">${half(S.i,"t","face")}${half(n,"b","face bk")}</div>`:half(S.i,"t")+half(n,"b")+`<div class="fl up">${half(S.i,"b","face")}${half(n,"t","face bk")}</div>`;
  const fl=f.querySelector(".fl");void fl.offsetWidth;fl.classList.add("go");
@@ -310,6 +316,7 @@ function show(t){
  document.querySelectorAll(".view").forEach(v=>v.style.paddingBottom=["menu","settings","post"].includes(t)?"0":"");
  if(t==="news"||t==="local")$(t).style.paddingTop="0";
  topbar();
+ bars(true);
 }
 $("app").addEventListener("click",e=>{
  const x=e.target.closest("[data-x]"),g=e.target.closest("[data-go]"),s=e.target.closest("[data-sh]"),tt=e.target.closest("[data-toast]"),sw=e.target.closest("[data-sw]"),ch=e.target.closest("[data-chip]");
@@ -333,6 +340,12 @@ function altbar(t){
 }
 $("alt").addEventListener("click",e=>{if(e.target.closest("[data-re]")){S.i=0;draw();toast("Refreshed")}});
 home();pages();cats();reelsV();local();menu();settings();post();
+function bars(show){
+ const on=S.tab==="news";
+ $("top").classList.toggle("hid",on&&!show);$("alt").classList.toggle("hid",on&&!show);$("news").classList.toggle("fs",on&&!show);
+ clearTimeout(bars.t);if(on&&show)bars.t=setTimeout(()=>bars(false),3000);
+}
+$("news").addEventListener("click",e=>{if(e.target.closest("button"))return;bars($("alt").classList.contains("hid"))});
 show("news");
 </script>
 </body>
