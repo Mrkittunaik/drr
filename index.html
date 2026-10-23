@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DRR News</title>
+<style>
+:root{--red:#B52A1C;--bg:#f4f4f4;--card:#fff;--ink:#161616;--mute:#6f6f6f;--line:#e5e5e5;--bar:#000;--barink:#fff;box-sizing:border-box;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c0c0c;--card:#181818;--ink:#f3f3f3;--mute:#a5a5a5;--line:#2b2b2b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c0c0c;--card:#181818;--ink:#f3f3f3;--mute:#a5a5a5;--line:#2b2b2b;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#000;font-family:"Noto Sans Telugu","Noto Sans Devanagari",system-ui,-apple-system,Roboto,sans-serif;color:var(--ink);overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+#app{position:relative;max-width:480px;height:100%;margin:0 auto;background:var(--bg);overflow:hidden}
+.top{position:absolute;top:0;left:0;right:0;z-index:20;height:54px;padding-top:env(safe-area-inset-top,0px);display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#000;color:#fff}
+.top.glass{background:linear-gradient(#000a,#0000)}
+.ic{width:34px;height:34px;display:grid;place-items:center;font-size:20px;border:2px solid #fff;border-radius:8px;line-height:1}
+.logo{display:flex;align-items:center;gap:7px;font-weight:800;color:#fff;font-size:15px}
+.logo i{display:flex;gap:2px;font-style:normal}
+.logo b{background:#fff;color:var(--red);width:17px;height:19px;display:grid;place-items:center;font-size:12px}
+.tg{display:flex;background:#0008;border:1px solid #fff4;border-radius:99px;padding:3px}
+.tg button{color:#fff;padding:7px 18px;border-radius:99px;font-weight:700;font-size:14px}
+.tg button.on{background:#fff3}
+.badge{background:var(--red);border-radius:99px;padding:1px 7px;font-size:12px;margin-left:5px}
+.view{position:absolute;inset:0;padding-top:calc(54px + env(safe-area-inset-top,0px));padding-bottom:calc(66px + env(safe-area-inset-bottom,0px));display:none;overflow:auto;background:var(--bg)}
+.view.on{display:block}
+#news{padding:0;overflow:hidden;background:#000}
+.fold{position:absolute;left:0;right:0;top:0;bottom:calc(66px + env(safe-area-inset-bottom,0px));perspective:1500px;background:var(--card);border-radius:0 0 18px 18px;overflow:hidden}
+.fold:after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;background:#0003;z-index:5;pointer-events:none}
+.hf{position:absolute;left:0;right:0;height:50%;overflow:hidden;background:var(--card)}
+.hf.t{top:0}.hf.b{bottom:0}
+.in{position:absolute;left:0;right:0;top:0;height:200%}
+.in.b{top:auto;bottom:0}
+.in .pg{transition:none;transform:none;opacity:1}
+.fl{position:absolute;left:0;right:0;height:50%;transform-style:preserve-3d;transition:transform .62s cubic-bezier(.45,0,.55,1);z-index:4}
+.fl.dn{top:0;transform-origin:bottom}.fl.dn.go{transform:rotateX(-180deg)}
+.fl.up{bottom:0;transform-origin:top}.fl.up.go{transform:rotateX(180deg)}
+.fl .hf{top:0;bottom:auto;height:100%;backface-visibility:hidden}
+.fl .hf.bk{transform:rotateX(180deg)}
+.fl .hf:after{content:"";position:absolute;inset:0;background:linear-gradient(#0000,#0003);pointer-events:none}
+.alt{position:absolute;left:0;right:0;bottom:0;z-index:30;background:#000;color:#fff;display:none;align-items:center;justify-content:space-between;padding:8px 22px calc(8px + env(safe-area-inset-bottom,0px))}
+.alt>button{display:grid;justify-items:center;font-size:24px;line-height:1.1;color:#fff}
+.alt small{font-size:11px;color:#ddd}
+.alt .mid{display:block;border:1px solid #fff5;border-radius:99px;padding:13px 28px;font-size:15px;font-weight:700;background:#161616}
+#news.on{display:block}
+.pg{position:absolute;inset:0;background:var(--card);transform-origin:top;transition:transform .45s cubic-bezier(.5,0,.2,1),opacity .45s;backface-visibility:hidden;display:flex;flex-direction:column}
+.pg.out{transform:rotateX(-100deg);opacity:0;pointer-events:none}
+.pg.next{transform:scale(.96);opacity:.5}
+.img{flex:0 0 41%;position:relative;color:#fff;display:flex;align-items:flex-end;justify-content:space-between;padding:10px;background-size:cover}
+.img .src{background:#000a;font-weight:700;padding:3px 8px;font-size:13px}
+.img .live{background:#0009;padding:3px 8px;font-size:13px;display:flex;gap:6px;align-items:center}
+.img .live em{background:#e11;font-style:normal;font-size:11px;font-weight:800;padding:1px 6px}
+.play{position:absolute;left:50%;top:50%;width:70px;height:70px;margin:-35px;border:4px solid #fffd;border-radius:50%;display:grid;place-items:center;font-size:26px;background:#0003}
+.who{position:absolute;left:12px;top:70px;display:flex;gap:8px;align-items:center;font-size:12px;background:#0007;padding:5px 10px 5px 5px;border-radius:99px}
+.av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:11px;flex:none}
+.who small{display:block;opacity:.8;font-size:11px}
+.tx{flex:1;padding:14px 16px 0;overflow:hidden}
+.tx h2{font-size:19px;line-height:1.45;font-weight:700;color:var(--ink)}
+.tx p{margin-top:10px;font-size:16px;line-height:1.75;color:var(--mute)}
+.ft{display:flex;justify-content:space-between;padding:6px 16px 8px;font-size:13px;color:var(--mute)}
+.ft b{color:var(--ink)}
+.act{height:62px;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);align-items:center;padding:0 4px;position:relative}
+.act button{display:flex;align-items:center;justify-content:center;gap:6px;height:100%;color:var(--mute);font-size:14px}
+.act button.on{color:var(--red);font-weight:700}
+.act svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.act .on svg{fill:currentColor}
+.act .wa{position:relative;top:-14px;width:56px;height:56px;border-radius:50%;background:#25D366;border:4px solid var(--card);display:grid;place-items:center;justify-self:center;color:#fff;padding:0}
+.act .wa svg{width:30px;height:30px;fill:#fff;stroke:none}
+.hint{position:absolute;right:10px;bottom:76px;z-index:3;font-size:11px;background:#0007;color:#fff;padding:4px 8px;border-radius:99px}
+nav{position:absolute;left:0;right:0;bottom:0;z-index:30;background:#000;color:#fff;display:flex;padding:7px 0 calc(7px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;display:grid;justify-items:center;gap:2px;font-size:11px;color:#ddd}
+nav button span{font-size:21px;width:46px;height:34px;display:grid;place-items:center;border-radius:99px}
+nav button.on span{background:#2a2a2a;border:1px solid #444}
+nav button.on{color:#fff;font-weight:700}
+nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav button.on svg{stroke:#fff}
+.sec{font-weight:800;text-align:center;margin:20px 0 12px;font-size:16px;display:flex;align-items:center;gap:12px;padding:0 16px}
+.sec:before,.sec:after{content:"";flex:1;height:1px;background:var(--line)}
+.car{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 16px 4px;scrollbar-width:none}
+.car::-webkit-scrollbar{display:none}
+.cc{flex:0 0 86%;height:300px;border-radius:18px;scroll-snap-align:center;position:relative;color:#fff;padding:18px;overflow:hidden;text-align:left}
+.cc .n{font-size:64px;color:#f5a623;line-height:1;font-weight:300}
+.cc .t{position:absolute;left:92px;top:22px;font-size:20px;font-weight:700}
+.cc .t small{display:block;font-size:14px;font-weight:400;opacity:.8}
+.cc h4{position:absolute;left:18px;bottom:52px;font-size:32px;font-weight:500}
+.cc u{position:absolute;left:18px;bottom:20px;font-size:15px;color:#2f9bff;text-decoration:none;font-weight:700}
+.dots{display:flex;gap:7px;justify-content:center;margin-top:12px}
+.dots i{width:10px;height:10px;border-radius:50%;background:#bbb}.dots i.on{background:var(--ink);width:24px;border-radius:6px}
+.reels{display:flex;gap:12px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+.rl{flex:0 0 46%;aspect-ratio:9/13;border-radius:10px;overflow:hidden;position:relative;color:#fff;display:flex;flex-direction:column}
+.rl div:first-child{flex:1;display:grid;place-items:center;font-size:44px}
+.rl div:last-child{background:#111;padding:10px;font-size:13px;line-height:1.4;border-top:3px solid #f5a623;min-height:42%}
+.rl small{display:block;color:#bbb;margin-top:6px}
+.card{background:var(--card);padding:18px 16px;margin-bottom:8px}
+.row{display:flex;align-items:center;gap:14px;padding:15px 16px;background:var(--card);border-bottom:1px solid var(--line);width:100%;text-align:left;font-size:16px;font-weight:600;color:var(--mute)}
+.row b{margin-left:auto;color:var(--mute)}
+.row.lk b{color:#1a8cff;font-size:13px;border-bottom:1px dashed #1a8cff}
+.guest{display:flex;gap:14px;align-items:center;padding:20px 16px;background:var(--bg)}
+.guest .av{width:62px;height:62px;background:#888;font-size:26px}
+.guest a{color:#1a8cff}
+.pick small{display:block;font-size:12px;font-weight:400}.pick strong{color:#1a8cff;font-size:19px}
+.hd{background:var(--card);padding:6px 16px 0;display:flex;align-items:center;justify-content:space-between}
+.set{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:16px;background:var(--card);text-align:center;font-size:12px}
+.sw{width:50px;height:28px;border-radius:99px;background:#d3d6e3;position:relative;margin:8px auto 0;transition:.2s}
+.sw:after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s}
+.sw.on{background:#1a8cff}.sw.on:after{left:25px}
+.lc{position:relative;height:100%;color:#fff;text-align:center;background:linear-gradient(#333,#111);padding-top:40px}
+.pinb{display:inline-block;background:#fff;color:#000;font-weight:700;padding:16px 28px;border-radius:99px;margin-top:40px}
+.sheet{position:absolute;inset:0;z-index:40;background:#000b;display:none;align-items:flex-end}
+.sheet.on{display:flex}
+.panel{background:var(--card);width:100%;max-height:82%;border-radius:18px 18px 0 0;display:flex;flex-direction:column}
+.ph{display:flex;justify-content:space-between;padding:14px 16px;font-weight:700;border-bottom:1px solid var(--line)}
+.list{overflow:auto;padding:12px 16px;display:grid;gap:12px}
+.cm{display:flex;gap:10px;font-size:14px}.cm small{display:block;color:var(--mute)}
+.add{display:flex;gap:8px;padding:10px 16px;border-top:1px solid var(--line)}
+.add input{flex:1;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:99px;padding:10px 14px;font:inherit;outline:0}
+.add button{background:var(--red);color:#fff;border-radius:99px;padding:0 18px;font-weight:700}
+.opt{display:flex;gap:12px;padding:16px;width:100%;text-align:left;border-bottom:1px solid var(--line);font-size:16px}
+.opt small{display:block;color:var(--mute)}
+.catl{display:grid;gap:2px;padding:6px 16px 16px}
+.catl button{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-weight:600;width:100%;text-align:left}
+.catl b{margin-left:auto}
+.srch{background:#2589ff;padding:16px;color:#fff}
+.srch input{width:100%;padding:14px;border:0;border-radius:8px;font:inherit;margin-top:14px}
+.ch{display:flex;flex-wrap:wrap;gap:10px;padding:16px}
+.ch button{border:2px solid var(--line);border-radius:99px;padding:10px 20px;font-size:13px;font-weight:700;background:var(--card)}
+.ch button.on{border-color:var(--red);color:var(--red)}
+.toast{position:absolute;left:50%;bottom:90px;transform:translateX(-50%);background:#fff;color:#000;padding:9px 16px;border-radius:99px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:60;white-space:nowrap}
+.toast.show{opacity:1}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app">
+ <div class="top glass" id="top"></div>
+
+ <section class="view on" id="home"></section>
+ <section class="view" id="news"></section>
+ <section class="view" id="cats"></section>
+ <section class="view" id="reelsV"></section>
+ <section class="view" id="local"></section>
+ <section class="view" id="menu"></section>
+ <section class="view" id="settings"></section>
+ <section class="view" id="post"></section>
+
+ <nav id="nav">
+  <button data-t="home"><span><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></span>Home</button>
+  <button data-t="news"><span><svg viewBox="0 0 24 24"><path d="M4 4h13a1 1 0 011 1v15H6a2 2 0 01-2-2V4zM18 9h2v9a2 2 0 01-2 2M8 8h6M8 12h6M8 16h4"/></svg></span>News</button>
+  <button data-t="cats"><span><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg></span>Categories</button>
+  <button data-t="reelsV"><span><svg viewBox="0 0 24 24"><path d="M4 4h16a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1zM10 9l5 3-5 3z"/></svg></span>Reels</button>
+  <button data-t="local"><span><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg></span>Local</button>
+ </nav>
+
+ <div class="alt" id="alt"></div>
+ <div class="sheet" id="sh"><div class="panel" id="shp"></div></div>
+ <div class="toast" id="toast"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const REP=[["Venkat R","#B52A1C","Medchal"],["Sana Fathima","#2b6cb0","Hyderabad"],["Ravi Teja","#2f855a","Warangal"],["Anita Sharma","#6b46c1","Delhi"],["Kiran Kumar","#c05621","Chintalakunta"]];
+const G=["#7a1a10,#2a0a07","#1d3557,#0b1626","#1b4332,#081c15","#4a1d6b,#1a0a26","#6b3a0e,#24130a"];
+const CATS=[["News","Breaking news","News కొరకు"],["Local News","Your town news","మీ ఊరి వార్తలకోసం"],["Politics","Leaders and parties","రాజకీయాలు"],["Cinema","Movies and stars","సినిమాలు"],["Viral","Status cards","వైరల్"],["Local Jobs","Jobs near you","మీ దగ్గర్లో జాబ్స్"]];
+const ST=[
+{t:"కొన్ని శక్తులు మనల్ని విడదీయాలని చూస్తున్నాయి: మోదీ",b:"కొన్ని దశాబ్దాలుగా పరిస్థితులు చాలా మారాయని, దేశం ముందు కొత్త సవాళ్లు ఎదురవుతున్నాయని ప్రధాని అన్నారు. ఢిల్లీలో గ్లోబల్ సమ్మేళనాన్ని ఆయన ప్రారంభించారు. సమస్యలను పరిష్కరించే బాధ్యత అందరిపై ఉందని వ్యాఖ్యానించారు.",r:3,c:"Politics",m:"6m ago",s:"ANI",v:1,lk:43,dk:14,cm:["Well said."],rp:8},
+{t:"HYD: KCR కోసం ఎదురుచూస్తున్నారు: KTR",b:"గత ఎన్నికల్లో HYDలో INC ఒక్క సీటు కూడా గెలవలేదని కేటీఆర్ అన్నారు. బీఆర్ఎస్ భవన్‌లో అంబర్‌పేట కార్యకర్తలతో ఆయన సమావేశం అయ్యారు.",r:0,c:"Politics",m:"12m ago",s:"DRR News",lk:503,dk:322,cm:["Great speech","Need action"],rp:31},
+{t:"Hyderabad metro adds late-night services on weekends",b:"Metro trains will now run until 1 AM on Fridays and Saturdays. Officials said the change follows a rise in weekend ridership across the city.",r:1,c:"Local",m:"20m ago",s:"DRR News",lk:218,dk:9,cm:[],rp:12},
+{t:"ఫౌజీలో ప్రభాస్ ఎవరు? సస్పెన్స్!",b:"సినిమాలో ప్రభాస్ పాత్ర ఏమిటనే దానిపై అభిమానుల్లో ఆసక్తి పెరిగింది. చిత్రబృందం త్వరలో కొత్త అప్‌డేట్ ఇవ్వనుంది.",r:4,c:"Cinema",m:"1h ago",s:"DRR News",lk:876,dk:55,cm:["Waiting!"],rp:97},
+{t:"వరంగల్‌లో కొత్త ఐటీ పార్క్‌కు శంకుస్థాపన",b:"వరంగల్ శివారులో కొత్త ఐటీ పార్క్ నిర్మాణానికి శంకుస్థాపన జరిగింది. వేలాది మంది యువతకు ఉద్యోగ అవకాశాలు వస్తాయని అధికారులు తెలిపారు.",r:2,c:"Business",m:"2h ago",s:"DRR News",lk:342,dk:21,cm:[],rp:5}
+];
+const S={tab:"home",i:0,dark:false,notif:1,auto:0,loc:"Chintalakunta"};
+const I={up:'<svg viewBox="0 0 24 24"><path d="M7 11v9H3v-9zM7 11l4-8c1.5 0 2.5 1 2.5 2.5V9H20a1.5 1.5 0 011.5 1.8l-1.6 8A2 2 0 0118 20H7"/></svg>',dn:'<svg viewBox="0 0 24 24"><path d="M17 13V4h4v9zM17 13l-4 8c-1.5 0-2.5-1-2.5-2.5V15H4a1.5 1.5 0 01-1.5-1.8l1.6-8A2 2 0 016 4h11"/></svg>',cm:'<svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.5 7.2L3 21l1.8-6A8 8 0 1121 12z"/></svg>',rp:'<svg viewBox="0 0 24 24"><path d="M17 2l4 4-4 4M3 11V9a3 3 0 013-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 01-3 3H3"/></svg>',sh:'<svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>'};
+const ini=n=>n.split(" ").map(x=>x[0]).join("").slice(0,2);
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(toast.h);toast.h=setTimeout(()=>e.classList.remove("show"),1600)}
+function logo(){return `<div class="logo"><i><b>D</b><b>R</b><b>R</b></i>NEWS</div>`}
+function topbar(){
+ const t=$("top");
+ if(S.tab==="news"){t.className="top glass";t.innerHTML=`<button class="ic" data-go="menu" aria-label="Profile">☺</button><div class="tg"><button class="on">News</button><button data-m="unread">Unread<span class="badge">${ST.length}</span></button></div><button class="ic" data-sh="cats" aria-label="Categories">+</button>`}
+ else if(["menu","settings","post"].includes(S.tab)){t.className="top";t.style.background="var(--card)";t.innerHTML=`<button class="ic" style="border-color:var(--ink);color:var(--ink)" data-go="home" aria-label="Back">←</button><b style="color:var(--ink)">${{menu:"Menu",settings:"Settings",post:"Post"}[S.tab]}</b><button class="ic" style="border-color:var(--ink);color:var(--ink)" data-go="home" aria-label="Home">⌂</button>`}
+ else if(S.tab==="local"){t.className="top glass";t.style.background="";t.innerHTML=`<button class="ic" data-go="menu">☺</button><div class="tg"><button data-go="news">News</button><button class="on">${S.loc}</button></div><button class="ic" data-sh="cats">+</button>`}
+ else{t.className="top";t.style.background="#000";t.innerHTML=`<button class="ic" data-go="menu" aria-label="Profile">☺</button>${logo()}<button class="ic" data-sh="cats" aria-label="Categories">+</button>`}
+}
+/* HOME */
+function home(){
+ $("home").innerHTML=`<div class="car" id="car">${CATS.map((c,i)=>`<button class="cc" data-go="news" style="background:linear-gradient(135deg,${G[i%5].split(",")[0]},#000)"><span class="n">${i+1}</span><span class="t">${c[2]}<small>of 6</small></span><h4>${c[0]}</h4><u>${c[1]} ›</u></button>`).join("")}</div>
+ <div class="dots" id="dots">${CATS.map((_,i)=>`<i class="${i?"":"on"}"></i>`).join("")}</div>
+ <div class="sec">NEWS REELS</div>
+ <div class="reels">${["20m ago","12:04 PM","11:15 AM","10:30 AM"].map((t,i)=>`<button class="rl" data-go="reelsV" style="background:linear-gradient(160deg,${G[i%5].split(",")[0]},#000)"><div>▶</div><div>${["ఫౌజీలో ప్రభాస్ ఎవరు?","నేటి ముఖ్యాంశాలు","జాబ్స్ అప్‌డేట్","క్రీడా వార్తలు"][i]}<small>◷ ${t}</small></div></button>`).join("")}</div>`;
+ const car=$("car");car.onscroll=()=>{const k=Math.round(car.scrollLeft/(car.clientWidth*.86+12));[...$("dots").children].forEach((d,j)=>d.classList.toggle("on",j===k))};
+}
+/* FLIP NEWS */
+function pages(){
+ $("news").innerHTML=`<div class="fold" id="fold"></div><div class="hint" id="hint">swipe up ↑</div>`;
+ draw();
+}
+function pg(p,i){
+ const r=REP[p.r],g=G[p.r].split(",");
+ return `<article class="pg" data-i="${i}"><div class="img" style="background:linear-gradient(135deg,${g[0]},${g[1]})">
+  ${p.v?'<div class="play">▶</div>':""}
+  <div class="who"><div class="av" style="background:${r[1]}">${ini(r[0])}</div><div>${r[0]}<small>Sr Reporter, ${r[2]}</small></div></div>
+  <span class="src">${p.s}</span><span class="live">${(1.1+i*.3).toFixed(1)} Lakh readers now <em>⚡LIVE</em></span></div>
+  <div class="tx"><h2>${p.t}</h2><p>${p.b}</p></div>
+  <div class="ft"><span>◷ <b>${p.m}</b></span><span>${i+1} of ${ST.length} <small>Pages</small></span></div>
+  <div class="act">
+   <button data-a="up" class="${p.u?"on":""}">${I.up}${p.lk+(p.u?1:0)}</button>
+   <button data-a="dn" class="${p.d?"on":""}">${I.dn}${p.dk+(p.d?1:0)}</button>
+   <button class="wa" data-a="wa" aria-label="Share on WhatsApp"><svg viewBox="0 0 24 24"><path d="M12.04 2a9.9 9.9 0 00-8.5 14.9L2 22l5.2-1.4A9.9 9.9 0 1012.04 2zm0 1.8a8.1 8.1 0 11-4.2 15l-.3-.2-3 .8.8-2.9-.2-.3A8.1 8.1 0 0112.04 3.8zM8.6 7.4c-.2 0-.5.1-.7.4-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9 2.1.9 2.6.7 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3l-1.6-.8c-.2-.1-.4-.1-.6.1l-.7.9c-.1.2-.3.2-.5.1-.3-.1-1.1-.4-2-1.2-.7-.7-1.2-1.5-1.4-1.8-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.6-.4z"/></svg></button>
+   <button data-a="cm">${I.cm}${p.cm.length}</button>
+   <button data-a="rp" class="${p.rpd?"on":""}">${I.rp}${p.rp+(p.rpd?1:0)}</button>
+  </div></article>`;
+}
+let busy=0;
+function half(i,part,cls){return `<div class="hf ${part} ${cls||""}"><div class="in ${part}">${pg(ST[i],i)}</div></div>`}
+function draw(){$("fold").innerHTML=half(S.i,"t")+half(S.i,"b")}
+function go(d){
+ const n=S.i+d;if(busy||n<0||n>=ST.length)return;busy=1;
+ const h=$("hint");if(h)h.style.display="none";
+ const f=$("fold"),dn=d>0;
+ f.innerHTML=dn?half(n,"t")+half(S.i,"b")+`<div class="fl dn">${half(S.i,"t","face")}${half(n,"b","face bk")}</div>`:half(S.i,"t")+half(n,"b")+`<div class="fl up">${half(S.i,"b","face")}${half(n,"t","face bk")}</div>`;
+ const fl=f.querySelector(".fl");void fl.offsetWidth;fl.classList.add("go");
+ setTimeout(()=>{S.i=n;draw();busy=0},640);
+}
+let y0=null;
+$("news").addEventListener("touchstart",e=>{y0=e.touches[0].clientY},{passive:true});
+$("news").addEventListener("touchend",e=>{if(y0===null)return;const d=y0-e.changedTouches[0].clientY;if(Math.abs(d)>50)go(d>0?1:-1);y0=null});
+let wl=0;$("news").addEventListener("wheel",e=>{const t=Date.now();if(t-wl<600)return;wl=t;go(e.deltaY>0?1:-1)},{passive:true});
+document.addEventListener("keydown",e=>{if(S.tab==="news"){if(e.key==="ArrowDown")go(1);if(e.key==="ArrowUp")go(-1)}});
+$("news").addEventListener("click",e=>{
+ const b=e.target.closest("button[data-a]");if(!b)return;
+ const p=ST[S.i],a=b.dataset.a;
+ if(a==="up"){p.u=!p.u;if(p.u)p.d=0}else if(a==="dn"){p.d=!p.d;if(p.d)p.u=0}
+ else if(a==="rp"){p.rpd=!p.rpd;toast(p.rpd?"Reposted":"Repost removed")}
+ else if(a==="cm"){comments();return}
+ else if(a==="wa"||a==="sh"){shareSheet();return}
+ draw();
+});
+/* SHEETS */
+function sheet(h){$("shp").innerHTML=h;$("sh").classList.add("on")}
+function close(){$("sh").classList.remove("on")}
+function comments(){const p=ST[S.i];
+ sheet(`<div class="ph"><span>Comments (${p.cm.length})</span><button data-x aria-label="Close">✕</button></div><div class="list">${p.cm.length?p.cm.map((c,k)=>`<div class="cm"><div class="av" style="background:${REP[(k+2)%5][1]}">${ini(REP[(k+2)%5][0])}</div><div><b>${REP[(k+2)%5][0]}</b><small>${c}</small></div></div>`).join(""):'<p style="color:var(--mute);text-align:center;padding:30px 0">No comments yet. Start the conversation.</p>'}</div><div class="add"><input id="ci" placeholder="Write a comment"><button id="cs">Post</button></div>`);
+ $("cs").onclick=()=>{const v=$("ci").value.trim();if(!v)return;p.cm.push(v);comments();draw()};
+}
+function shareSheet(){
+ sheet(`<div class="ph"><span>Share</span><button data-x aria-label="Close">✕</button></div><div class="ch">${["WhatsApp","WhatsApp Status","X Share","Instagram","Instagram Stories","Facebook","Telegram","Copy Link"].map(x=>`<button data-toast="Shared via ${x}">${x}</button>`).join("")}</div>
+ <button class="opt" data-toast="Report sent">⚠<span>Report Story<small>Help us improve</small></span></button>
+ <button class="opt" data-toast="Image saved">⬇<span>Download Image<small>Save to local directory</small></span></button>
+ <button class="opt" data-toast="Bookmarked">▣<span>Bookmark<small>Save to read offline</small></span></button>
+ <p style="padding:12px 16px;font-size:12px;color:var(--mute)">This story is not edited by the DRR News team and does not reflect its views.</p>`);
+}
+function catSheet(){
+ sheet(`<div class="ph"><span>Categories</span><button data-x aria-label="Close">✕</button></div><div class="catl">${["All news","Unread","Politics","Cinema","Sports","Business","Wild life","Trending","Viral"].map(c=>`<button data-go="news" data-x>${c}<b>›</b></button>`).join("")}</div>`);
+}
+/* CATEGORIES */
+function cats(){
+ $("cats").innerHTML=`<div class="srch"><b>Search</b><input placeholder="Search keyword ex: Modi, Politics, Stocks"></div>
+ <div class="card"><b>Select stories before</b><div style="color:var(--mute);font-size:13px">Between last 24 hours</div></div>
+ <div class="ch">${[1,2,4,8,12,16,20,24].map(h=>`<button data-chip>${h} hour${h>1?"s":""}</button>`).join("")}</div>
+ ${["Videos","Magazines","Viral","Trending","Wild life","Sports","Politics","Cinema"].map(c=>`<button class="row" data-go="news">${c}<b>›</b></button>`).join("")}`;
+}
+function reelsV(){$("reelsV").innerHTML=`<div class="sec">NEWS REELS</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px">${[0,1,2,3,4,5].map(i=>`<div class="rl" style="background:linear-gradient(160deg,${G[i%5].split(",")[0]},#000);min-height:220px"><div>▶</div><div>${ST[i%5].t.slice(0,34)}…<small>◷ ${i+1}h ago</small></div></div>`).join("")}</div>`}
+function local(){$("local").innerHTML=`<div class="lc"><small>Your selected place</small><h2 style="margin-top:10px">${S.loc}</h2><div style="font-size:70px;margin-top:20px">⚲</div><button class="pinb" data-sh="loc">Change location</button><div style="background:var(--card);color:var(--ink);position:absolute;left:0;right:0;bottom:0;top:62%;padding:16px;text-align:left;border-radius:18px 18px 0 0"><b>Get hyper-local updates fast</b><p style="color:var(--mute);margin-top:8px;line-height:1.7">Thanks for selecting a location. You will now get news from your area, events and local highlights.</p></div></div>`}
+function menu(){
+ $("menu").innerHTML=`<div class="guest"><div class="av">☺</div><div><b style="font-size:22px">Guest</b><div><a>Click here</a> <span style="color:var(--mute)">to sign in</span></div></div></div>
+ <button class="row pick" data-toast="Language: Telugu"><span><small>Choose your language</small><strong>తెలుగు</strong> Telugu</span><b>→</b></button>
+ <button class="row pick" data-sh="loc"><span><small>Your selected place</small><strong>${S.loc} (Change)</strong></span><b>→</b></button>
+ <div class="row lk" style="margin-top:8px"><span>Fact Check</span><b>CHECK NOW</b></div>
+ <div class="row lk"><span>Referral</span><b>REFER NOW</b></div>
+ <button class="row" data-go="post">Become a reporter<b>›</b></button>
+ <button class="row" data-toast="Status videos">Status videos<b>›</b></button>
+ <button class="row" data-toast="DRR exclusive">DRR News exclusive<b>›</b></button>
+ <button class="row" data-go="settings">Settings<b>›</b></button>
+ <button class="row" data-toast="Thanks for the feedback">Feedback<b>›</b></button>
+ <button class="row" data-toast="Contact us">Contact us<b>›</b></button>`;
+}
+function settings(){
+ $("settings").innerHTML=`<div class="card" style="display:flex;justify-content:space-between"><b style="font-size:26px">Settings</b><span>App version 1.0</span></div>
+ <div class="set">${[["Notifications","notif"],["Video autoplay","auto"],["Night mode","dark"],["Local stories","ls"]].map(([l,k])=>`<div>${l}<div class="sw ${(k==="dark"?S.dark:k==="ls"?1:S[k])?"on":""}" role="switch" tabindex="0" data-sw="${k}"></div></div>`).join("")}</div>
+ <div class="card"><b>Parental control</b><div style="color:var(--mute);font-size:13px;margin-top:4px">Blocks abusive comments from your view.</div><div class="sw" data-sw="par" role="switch" tabindex="0"></div></div>
+ <button class="row" data-toast="Bookmarks synced">Bookmarks<b>⟳</b></button><button class="row" data-toast="Cache cleared">Clear cache<b>⌫</b></button>
+ <button class="row">About us<b>›</b></button><button class="row">Terms and conditions<b>›</b></button><button class="row">Privacy policy<b>›</b></button>`;
+}
+function post(){
+ $("post").innerHTML=`<div class="card"><b style="font-size:22px">Post</b></div>
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px 12px">
+ <button class="cc" style="height:260px;flex:none;background:linear-gradient(160deg,#7a1a10,#000)" data-toast="Reporter signup opens soon"><span class="n">1</span><h4 style="font-size:22px;bottom:70px">Become a reporter</h4><u>Post news ›</u></button>
+ <button class="cc" style="height:260px;flex:none;background:linear-gradient(160deg,#333,#000)" data-toast="Advertise with DRR News"><span class="n">2</span><h4 style="font-size:22px;bottom:70px">Advertise with us</h4><u>Know how ›</u></button></div>
+ <div class="card"><b>Frequently asked questions</b></div>
+ ${["How to become a DRR News journalist","How to send news","How to redeem money from wallet","Can I change district and language","How long does a story take to publish","Will I get paid for sending news"].map(q=>`<button class="row" style="font-weight:400">${q}<b>›</b></button>`).join("")}`;
+}
+/* ROUTER */
+function show(t){
+ S.tab=t;
+ document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id===t));
+ document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));
+ $("nav").style.display=["home","cats"].includes(t)?"":"none";
+ altbar(t);
+ document.querySelectorAll(".view").forEach(v=>v.style.paddingBottom=["menu","settings","post"].includes(t)?"0":"");
+ if(t==="news"||t==="local")$(t).style.paddingTop="0";
+ topbar();
+}
+$("app").addEventListener("click",e=>{
+ const x=e.target.closest("[data-x]"),g=e.target.closest("[data-go]"),s=e.target.closest("[data-sh]"),tt=e.target.closest("[data-toast]"),sw=e.target.closest("[data-sw]"),ch=e.target.closest("[data-chip]");
+ if(tt)toast(tt.dataset.toast);
+ if(ch)ch.classList.toggle("on");
+ if(sw){sw.classList.toggle("on");if(sw.dataset.sw==="dark"){S.dark=!S.dark;document.documentElement.dataset.theme=S.dark?"dark":"light"}}
+ if(x&&!g)close();
+ if(g){close();show(g.dataset.go)}
+ if(s){s.dataset.sh==="cats"?catSheet():locSheet()}
+ if(e.target.id==="sh")close();
+});
+function locSheet(){sheet(`<div class="ph"><span>Change location</span><button data-x aria-label="Close">✕</button></div>${["Chintalakunta","Medchal","Hyderabad","Warangal","Delhi"].map(c=>`<button class="opt" data-loc="${c}">⚲ ${c}</button>`).join("")}`)}
+$("shp").addEventListener("click",e=>{const l=e.target.closest("[data-loc]");if(l){S.loc=l.dataset.loc;close();local();menu();topbar();toast("Location: "+S.loc)}});
+$("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)show(b.dataset.t)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+function altbar(t){
+ const a=$("alt"),on=["news","reelsV","local"].includes(t);
+ a.style.display=on?"flex":"none";if(!on)return;
+ const mid=t==="local"?`<button class="mid" data-sh="loc">${S.loc} ⌃</button>`:t==="news"?`<button class="mid" data-sh="cats">${ST.length} unread ⌃</button>`:`<button class="mid" data-sh="cats">Reels ⌃</button>`;
+ a.innerHTML=`<button data-go="home" aria-label="Back to home">←<small>Home</small></button>${mid}<button data-re aria-label="Reload">⟳<small>Reload</small></button>`;
+}
+$("alt").addEventListener("click",e=>{if(e.target.closest("[data-re]")){S.i=0;draw();toast("Refreshed")}});
+home();pages();cats();reelsV();local();menu();settings();post();show("home");
+</script>
+</body>
+</html>
