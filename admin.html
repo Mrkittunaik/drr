@@ -3,177 +3,211 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#ffffff">
 <title>DRR Admin</title>
 <style>
-:root{--red:#B52A1C;--bg:#f2f2f0;--card:#fff;--ink:#161616;--mute:#6b6b6b;--line:#e4e4e0;--ok:#2f855a;--r:6px;--chip:#ececE8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0d0d;--card:#191919;--ink:#f1f1f1;--mute:#a3a3a3;--line:#2c2c2c;--chip:#262626;color-scheme:dark}}
+:root{--red:#B52A1C;--bg:#ffffff;--card:#ffffff;--ink:#161616;--mute:#6f6f6f;--line:#eeeeee;--ok:#2f855a;--r:3px;--r-s:8px;
+--sh:0 2px 12px rgba(0,0,0,.08),0 1px 3px rgba(0,0,0,.06);--navbg:#f0f0f2;--sh-top:0 3px 12px rgba(0,0,0,.12);--sh-bot:0 -3px 12px rgba(0,0,0,.12);color-scheme:light only}
 *{box-sizing:border-box;margin:0}
-html,body{background:var(--bg);color:var(--ink);font-family:"Noto Sans Telugu",system-ui,-apple-system,Roboto,sans-serif;font-size:14px}
-button,input,select{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
-button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-#app{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))}
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:#000;color:#fff;height:54px;padding:0 14px;display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px}
-.logo b{background:#fff;color:var(--red);padding:2px 7px;border-radius:var(--r);font-size:12px}
-.pill{background:var(--red);padding:4px 9px;border-radius:var(--r);font-size:11px;font-weight:700}
-.back{display:flex;align-items:center;gap:6px;color:#fff;font-weight:700;padding:6px 8px 6px 0}
-main{padding:12px}
-h3{font-size:15px;margin:20px 0 8px;display:flex;justify-content:space-between;align-items:center}
-h3:first-child{margin-top:4px}
+html,body{background:#fff}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans Telugu",system-ui,-apple-system,Roboto,sans-serif;font-size:14px;overflow-y:auto}
+button,input{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+#app{max-width:480px;margin:0 auto;min-height:100vh;background:#fff;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.top{position:sticky;top:0;z-index:10;background:var(--navbg);color:var(--ink);height:calc(56px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 16px 0;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh-top)}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:16px;color:var(--ink)}
+.logo b{background:var(--red);color:#fff;padding:3px 8px;border-radius:3px;font-size:12px}
+.pill{background:var(--red);color:#fff;padding:4px 10px;border-radius:3px;font-size:11px;font-weight:700}
+.back{display:flex;align-items:center;gap:6px;color:var(--ink);font-weight:700;padding:6px 4px}
+main{padding:16px 14px}
+h3{font-size:15px;margin:22px 0 10px;display:flex;justify-content:space-between;align-items:center}
 h3 small{color:var(--mute);font-weight:400;font-size:12px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.stat{padding:12px;display:flex;gap:10px;align-items:center}
-.stat .ico{width:36px;height:36px;border-radius:var(--r);display:grid;place-items:center;color:#fff;flex:none}
-.stat small{color:var(--mute);font-size:12px;display:block}
-.stat b{font-size:20px;line-height:1.2}
-.stat i{font-style:normal;font-size:11px;color:var(--ok);font-weight:700;display:block}
+.card{background:var(--card);border:1px solid rgba(0,0,0,.04);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{padding:14px}
+.stat small{color:var(--mute);font-size:12px}
+.stat b{display:block;font-size:26px;margin-top:2px}
+.stat i{font-style:normal;font-size:11px;color:var(--ok);font-weight:700}
 .stat i.dn{color:var(--red)}
-.bars{display:flex;align-items:flex-end;gap:8px;height:120px;padding:14px 12px 8px}
+.bars{display:flex;align-items:flex-end;gap:8px;height:120px;padding:16px 14px 10px}
 .bars div{flex:1;text-align:center;font-size:10px;color:var(--mute);display:flex;flex-direction:column;justify-content:flex-end;height:100%}
-.bars span{display:block;background:var(--red);border-radius:var(--r);margin-bottom:4px;min-height:4px}
-.bars span.lo{background:var(--chip)}
-.row{display:flex;gap:10px;align-items:center;padding:11px 12px;border-bottom:1px solid var(--line);width:100%;text-align:left}
-.row:last-child{border-bottom:0}
-button.row:active{background:var(--chip)}
-.av{width:36px;height:36px;border-radius:var(--r);display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px;flex:none}
-.th{width:52px;height:52px;border-radius:var(--r);flex:none;display:grid;place-items:center;color:#fff;background-size:cover;background-position:center;position:relative}
-.th svg{filter:drop-shadow(0 1px 2px #0008)}
+.bars span{display:block;background:var(--red);border-radius:3px;margin-bottom:4px}
+.list{display:grid;gap:10px}
+.row{display:flex;gap:12px;align-items:center;padding:10px 12px;width:100%;text-align:left;background:#fff;border:1px solid rgba(0,0,0,.05);border-radius:var(--r);box-shadow:var(--sh)}
+button.row:active{background:#f7f7f7}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px;flex:none}
+.th{position:relative;width:64px;height:64px;border-radius:3px;flex:none;display:grid;place-items:center;color:#fff;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.2);background-image:radial-gradient(circle at 82% 18%,rgba(255,255,255,.4) 0,transparent 42%),radial-gradient(circle at 15% 95%,rgba(0,0,0,.3) 0,transparent 55%)}
+.th svg{filter:drop-shadow(0 1px 3px rgba(0,0,0,.35))}
+.th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.th .pl{position:absolute;z-index:2;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.55);display:grid;place-items:center}
+.th .pl svg{filter:none;margin-left:1px}
+.th.noimg .pl{display:none}
+.th.grey{filter:grayscale(1)}
+.th.big{width:100%;height:118px;box-shadow:none;border-radius:0}
+.th.big .pl{width:36px;height:36px}
+.th.big .pl svg{width:16px;height:16px}
+.th em{z-index:3}
+.strip{display:flex;gap:12px;overflow-x:auto;margin:0 -14px;padding:4px 14px 14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.strip::-webkit-scrollbar{display:none}
+.pv{flex:none;width:200px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.05);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.pv .bd{padding:10px 11px 12px}
+.pv .t{font-size:13px}
+.dayb{display:flex;align-items:flex-end;gap:6px;padding:14px 10px 10px}
+.dayb button{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:150px;font-size:10px;color:var(--mute);border-radius:3px;padding:6px 2px 4px;gap:4px}
+.dayb button.on{background:#f3f3f5;color:var(--ink);font-weight:700;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.dayb .n{font-weight:700;font-size:11px;color:var(--ink)}
+.dayb .stk{width:70%;max-width:26px;display:flex;flex-direction:column;justify-content:flex-end;flex:1;gap:2px}
+.dayb .stk span{display:block;border-radius:3px;min-height:0}
+.dayb .a{background:var(--red)}
+.dayb .rl{background:#222}
+.legend{display:flex;gap:14px;padding:0 14px 12px;font-size:11px;color:var(--mute)}
+.legend b{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.th em{position:absolute;right:3px;bottom:3px;background:rgba(0,0,0,.55);color:#fff;font-style:normal;font-size:8px;font-weight:700;padding:1px 4px;border-radius:3px}
 .grow{flex:1;min-width:0}
 .t{font-weight:600;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.m{color:var(--mute);font-size:12px;margin-top:2px}
-.tag{font-size:10px;font-weight:700;padding:2px 6px;border-radius:var(--r);background:var(--chip);color:var(--mute);margin-right:4px;display:inline-block}
-.tag.r{background:var(--red);color:#fff}.tag.g{background:var(--ok);color:#fff}.tag.k{background:#000;color:#fff}
-.likes{font-weight:700;font-size:13px;white-space:nowrap;text-align:right}
-.likes small{display:block;color:var(--mute);font-weight:400;font-size:11px}
-.rk{width:22px;font-weight:800;color:var(--red);font-size:16px;text-align:center;flex:none}
-.more{display:block;width:100%;margin-top:8px;padding:11px;border:1px solid var(--red);color:var(--red);font-weight:700;border-radius:var(--r);background:var(--card)}
-.search{width:100%;padding:12px;border:1px solid var(--line);background:var(--card);border-radius:var(--r);cursor:text}
-.seg{display:flex;gap:6px;margin-bottom:10px}
-.seg button{flex:1;padding:10px;border:1px solid var(--line);background:var(--card);border-radius:var(--r);font-weight:700;color:var(--mute)}
+.m{color:var(--mute);font-size:12px;margin-top:3px}
+.tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;background:#f0f0f0;color:var(--mute);margin-right:5px}
+.tag.r{background:var(--red);color:#fff}
+.tag.g{background:var(--ok);color:#fff}
+.rk{width:24px;font-weight:800;color:var(--red);font-size:16px;text-align:center;flex:none}
+.likes{font-weight:700;font-size:13px;white-space:nowrap}
+.more{display:block;width:100%;margin-top:12px;padding:12px;border:1px solid var(--red);color:var(--red);font-weight:700;border-radius:var(--r);background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.search{width:100%;padding:13px 14px;border:1px solid rgba(0,0,0,.06);background:#fff;border-radius:var(--r);box-shadow:var(--sh);cursor:text}
+.seg{display:flex;gap:8px;margin-bottom:12px}
+.seg button{flex:1;padding:10px;border:1px solid rgba(0,0,0,.06);background:#fff;border-radius:var(--r);font-weight:700;color:var(--mute);box-shadow:var(--sh)}
 .seg button.on{background:var(--red);border-color:var(--red);color:#fff}
-.hero{height:210px;background-size:cover;background-position:center;position:relative;display:flex;align-items:flex-end;padding:10px;color:#fff}
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(#0000 40%,#000a)}
-.hero .tag{position:relative;z-index:1}
-.feat{display:block;width:100%;text-align:left}
-.feat .hero{height:150px}
-.feat .body{padding:12px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 14px;border-radius:var(--r);font-weight:700;border:1px solid var(--line);background:var(--card)}
-.btn.red{background:var(--red);border-color:var(--red);color:#fff}
-.btn.out{border-color:var(--red);color:var(--red)}
-.btn.sm{padding:6px 10px;font-size:12px}
-.btn.full{width:100%}
-.act{display:grid;gap:8px;margin-top:14px}
-.cm{display:flex;gap:10px;padding:12px;border-bottom:1px solid var(--line);align-items:flex-start}
-.cm:last-child{border-bottom:0}
-.cm p{line-height:1.45;margin-top:3px}
+.prof{display:flex;gap:14px;align-items:center;padding:16px}
+.prof .av{width:58px;height:58px;font-size:20px}
 .empty{padding:24px;text-align:center;color:var(--mute)}
-.prof{display:flex;gap:12px;align-items:center;padding:14px}
-.prof .av{width:56px;height:56px;font-size:20px}
-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));width:calc(100% - 20px);max-width:460px;background:#000;border-radius:var(--r);display:flex;padding:6px;gap:4px;z-index:20;box-shadow:0 6px 20px #0006}
-nav button{flex:1;color:#bbb;display:grid;justify-items:center;gap:2px;font-size:11px;padding:7px 0;border-radius:var(--r)}
-nav button.on{background:var(--red);color:#fff;font-weight:700}
-.sheet{position:fixed;inset:0;background:#000a;z-index:40;display:none;align-items:flex-end;justify-content:center}
-.sheet.on{display:flex}
-.panel{background:var(--card);width:100%;max-width:480px;border-radius:var(--r) var(--r) 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px))}
-.panel h4{font-size:16px;margin-bottom:6px}
-.panel p{color:var(--mute);margin-bottom:12px;line-height:1.45}
-.panel select{width:100%;padding:11px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);margin-bottom:12px}
-.panel .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:#000;color:#fff;padding:10px 16px;border-radius:var(--r);font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:60;white-space:nowrap}
-.toast.show{opacity:1}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-radius:22px 22px 0 0;display:flex;padding:0 6px calc(10px + env(safe-area-inset-bottom,0px));z-index:20;box-shadow:0 -4px 18px rgba(0,0,0,.12)}
+nav button{flex:1;position:relative;color:#6b6b6b;display:grid;justify-items:center;gap:3px;font-size:11px;padding:12px 0 2px}
+nav button span{display:grid;place-items:center;height:24px}
+nav button.on{color:var(--red);font-weight:700}
+nav button.on::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:34px;height:3px;border-radius:0 0 3px 3px;background:var(--red)}
 </style>
 </head>
 <body>
-<div id="app"><div class="top" id="top"></div><main id="main"></main></div>
+<div id="app">
+<div class="top" id="top"></div>
+<main id="main"></main>
 <nav id="nav"></nav>
-<div class="sheet" id="sh"><div class="panel" id="shp"></div></div>
-<div class="toast" id="toast"></div>
+</div>
 <script>
 const $=id=>document.getElementById(id);
-const R=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}};
-const W=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-/* Shared data: the reader app (index.html) can save its demo images into localStorage "drr_imgs" so admin shows the same pictures */
-const IM=R("drr_imgs")||[];
-const G=["#7a1a10,#2a0a07","#1d3557,#0b1626","#1b4332,#081c15","#4a1d6b,#1a0a26","#6b3a0e,#24130a"];
 const COL=["#B52A1C","#2b6cb0","#2f855a","#6b46c1","#c05621","#0f766e"];
-const U=[["Venkat R","Medchal"],["Sana Fathima","Hyderabad"],["Ravi Teja","Warangal"],["Anita Sharma","Delhi"],["Kiran Kumar","Chintalakunta"],["Lakshmi P","Vijayawada"],["Suresh Babu","Guntur"],["Meena K","Nizamabad"]].map((u,i)=>({id:i,name:u[0],loc:u[1],col:COL[i%6],joined:"Jan "+(i+3)+", 2026"}));
+const U=[["Venkat R","Medchal"],["Sana Fathima","Hyderabad"],["Ravi Teja","Warangal"],["Anita Sharma","Delhi"],["Kiran Kumar","Chintalakunta"],["Lakshmi P","Vijayawada"],["Suresh Babu","Guntur"],["Meena K","Nizamabad"]]
+.map((u,i)=>({id:i,name:u[0],loc:u[1],col:COL[i%6],joined:"Jan "+(i+3)+", 2026"}));
 const TT=["Heavy rain alert for Hyderabad","New metro line opens next month","Local MLA inaugurates road project","Star hero announces new film","Job fair: 500 vacancies in town","Cricket final tonight: match preview","Petrol price update today","Farmers get new subsidy scheme","College results released","Temple festival draws huge crowd","Water supply disrupted in 5 areas","Viral: street singer wins hearts"];
-const CT=["Very useful, thanks for sharing","Is this confirmed? Please verify","Great news for our town","Please share more details","Not happy with this decision","Super! Waiting for the update","Shared with my family group","Where exactly did this happen?"];
-const P=[],CM=[];
-for(let i=0;i<36;i++){const u=U[(i*3)%8];P.push({id:i,uid:u.id,type:i%3===1?"Reel":"Article",title:TT[i%12]+(i>11?" #"+(i+1):""),likes:Math.round(((i*7919)%900)+40+(i%5)*210),views:Math.round(((i*6113)%9000)+800),shares:Math.round(((i*131)%300)+12),hrs:i*3+1,img:i%5});
- for(let j=0;j<2+(i%5);j++)CM.push({id:i*10+j,pid:i,uid:(i*5+j*3)%8,text:CT[(i+j)%8],hrs:j*2+1+(i%4)})}
-const S=R("drr_admin")||{dp:[],dc:[]};
-const save=()=>{W("drr_admin",S);W("drr_deleted_posts",S.dp.map(d=>d.id))};
-const ago=h=>h<24?h+"h ago":Math.floor(h/24)+"d ago",fmt=n=>n>=1000?(n/1000).toFixed(1)+"K":n;
-const live=()=>P.filter(p=>!S.dp.some(d=>d.id===p.id));
-const cmOf=p=>CM.filter(c=>c.pid===p&&!S.dc.includes(c.id));
-const init=n=>n.split(" ").map(w=>w[0]).join("");
-const st={tab:"dash",post:null,user:null,pt:"c",ut:"All",tr:"Article",q:"",from:null,n:{dash:5,user:5,tr:5,del:5}};
-const ic=d=>`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
-const IC={dash:ic('<path d="M4 4h6v7H4zM14 4h6v4h-6zM14 12h6v8h-6zM4 15h6v5H4z"/>'),users:ic('<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M16 5a3 3 0 010 6M18 14c2 .7 3 2.5 3 6"/>'),trend:ic('<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>'),del:ic('<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>'),play:ic('<path d="M8 5l11 7-11 7z"/>'),doc:ic('<path d="M6 3h9l4 4v14H6zM9 12h7M9 16h7M9 8h3"/>'),heart:ic('<path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/>'),chat:ic('<path d="M4 5h16v11H9l-5 4z"/>'),eye:ic('<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'),share:ic('<path d="M12 3v12M7 8l5-5 5 5M5 14v6h14v-6"/>'),back:ic('<path d="M15 5l-7 7 7 7"/>')};
-const NAV=[["dash","Dashboard"],["users","Users"],["trend","Trending"],["del","Deleted"]];
-const thumb=(p,big)=>{const bg=IM[p.img]?`url(${IM[p.img]})`:`linear-gradient(135deg,${G[p.img].split(",").join(",")})`;return `background-image:${bg}`};
-const th=p=>`<div class="th" style="${thumb(p)}">${p.type==="Reel"?IC.play:""}</div>`;
-const sheet=h=>{$("shp").innerHTML=h;$("sh").classList.add("on")};
-const closeSheet=()=>$("sh").classList.remove("on");
-$("sh").onclick=e=>{if(e.target.id==="sh")closeSheet()};
-const toast=m=>{const t=$("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2000)};
+const P=[];
+for(let i=0;i<42;i++){const u=U[(i*3)%8];P.push({id:i,uid:u.id,type:i%3===1?"Reel":"Article",title:TT[i%12]+(i>11?" #"+(i+1):""),likes:Math.round(((i*7919)%900)+40+(i%5)*210),views:Math.round(((i*6113)%9000)+800),hrs:Math.round(i*3.9)+1})}
+const D=[];
+const WHO=[["Admin","Admin"],["Moderator","Mod"],["Author","Self"]];
+const RS=["Fake news report","Duplicate post","Author removed","Copyright claim","Policy violation"];
+for(let i=0;i<14;i++){const p=P[(i*2+5)%42],w=WHO[i%3];D.push({pid:p.id,title:p.title,type:p.type,by:w[0]==="Author"?U[p.uid].name:w[0]===" Admin"?"Admin":w[0]==="Moderator"?"Mod Ravi":"Admin",role:w[0],reason:RS[i%5],hrs:i*5+2,author:U[p.uid].name})}
+const ago=h=>h<24?h+"h ago":Math.floor(h/24)+"d ago";
+const fmt=n=>n>=1000?(n/1000).toFixed(1)+"K":n;
+const st={tab:"dash",user:null,ut:"All",tr:"Article",q:"",day:0,af:"All",n:{dash:5,user:5,tr:5,del:5,act:5}};
+let IMG=[];
+const IC={"dash": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 4h6v7H4zM14 4h6v4h-6zM14 12h6v8h-6zM4 15h6v5H4z\"/></svg>", "users": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"9\" cy=\"8\" r=\"3.2\"/><path d=\"M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M16 5a3 3 0 010 6M18 14c2 .7 3 2.5 3 6\"/></svg>", "trend": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8M15 7h6v6\"/></svg>", "act": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M4 10h16M8 3v4M16 3v4M8 14h3\"/></svg>", "del": "<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3\"/></svg>"};
+const NAV=[["dash",IC.dash,"Dashboard"],["act",IC.act,"Activity"],["users",IC.users,"Users"],["trend",IC.trend,"Trending"],["del",IC.del,"Deleted"]];
+const PLAY=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7z"/></svg>`,DOC=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6zM9 12h7M9 16h7M9 8h3"/></svg>`;
+function nav(){$("nav").innerHTML=NAV.map(n=>`<button class="${st.tab===n[0]?"on":""}" data-t="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join("");
+$("nav").querySelectorAll("button").forEach(b=>b.onclick=()=>{st.tab=b.dataset.t;st.user=null;st.q="";render();scrollTo(0,0)})}
+function hdr(){$("top").innerHTML=st.user!==null?`<button class="back" id="bk">← Users</button><span class="pill">USER</span>`:`<div class="logo"><b>DRR</b> Admin</div><span class="pill">ADMIN</span>`;
+if(st.user!==null)$("bk").onclick=()=>{st.user=null;render()}}
 const more=(k,len)=>st.n[k]<len?`<button class="more" data-k="${k}">Show more (${len-st.n[k]})</button>`:"";
-const postRow=(p,rank)=>`<button class="row" data-p="${p.id}">${rank?`<div class="rk">${rank}</div>`:""}${th(p)}<div class="grow"><div class="t">${p.title}</div><div class="m"><span class="tag ${p.type==="Reel"?"r":""}">${p.type}</span>${U[p.uid].name} · ${ago(p.hrs)}</div></div><div class="likes">♥ ${fmt(p.likes)}<small>${cmOf(p.id).length} comments</small></div></button>`;
-function nav(){$("nav").innerHTML=NAV.map(n=>`<button class="${st.tab===n[0]&&st.post===null&&st.user===null?"on":""}" data-t="${n[0]}">${IC[n[0]]}${n[1]}</button>`).join("");
- $("nav").querySelectorAll("button").forEach(b=>b.onclick=()=>{st.tab=b.dataset.t;st.post=null;st.user=null;st.q="";render();scrollTo(0,0)})}
-function hdr(){const sub=st.post!==null||st.user!==null;$("top").innerHTML=sub?`<button class="back" id="bk">${IC.back} Back</button><span class="pill">${st.post!==null?"ARTICLE":"USER"}</span>`:`<div class="logo"><b>DRR</b> Admin</div><span class="pill">ADMIN</span>`;
- if(sub)$("bk").onclick=()=>{if(st.post!==null){st.post=null;if(st.from!==null){st.user=st.from;st.from=null}}else st.user=null;render()}}
-const stat=(l,v,c,i,d,dn)=>`<div class="card stat"><div class="ico" style="background:${c}">${i}</div><div><small>${l}</small><b>${v}</b>${d?`<i class="${dn?"dn":""}">${d}</i>`:""}</div></div>`;
-function dash(){const L=live(),latest=[...L].sort((a,b)=>a.hrs-b.hrs),top=[...L].sort((a,b)=>b.likes-a.likes)[0];
- const days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],v=[12,19,8,24,17,28,14],mx=Math.max(...v);
- const allC=CM.filter(c=>!S.dc.includes(c.id)&&L.some(p=>p.id===c.pid)).sort((a,b)=>a.hrs-b.hrs).slice(0,4);
- return `<div class="grid">${stat("Total users",U.length*312,"#2b6cb0",IC.users,"▲ 4.2% this week")}${stat("Articles",L.filter(p=>p.type==="Article").length*41,"#B52A1C",IC.doc,"▲ 2.1%")}${stat("Reels",L.filter(p=>p.type==="Reel").length*37,"#6b46c1",IC.play,"▲ 8.6%")}${stat("Deleted",S.dp.length+14,"#555",IC.del,"▼ needs review",1)}${stat("Total likes",fmt(L.reduce((s,p)=>s+p.likes,0)),"#c05621",IC.heart,"▲ 12%")}${stat("Comments",CM.filter(c=>!S.dc.includes(c.id)).length,"#0f766e",IC.chat,"▲ 5.4%")}</div>
- <h3>Top article right now <small>most liked</small></h3>
- <button class="card feat" data-p="${top.id}"><div class="hero" style="${thumb(top)}"><span class="tag ${top.type==="Reel"?"r":"k"}">${top.type}</span></div><div class="body"><div class="t">${top.title}</div><div class="m">${U[top.uid].name} · ♥ ${fmt(top.likes)} · ${cmOf(top.id).length} comments · ${fmt(top.views)} views</div></div></button>
- <h3>Posts this week <small>last 7 days</small></h3>
- <div class="card bars">${v.map((x,i)=>`<div><span class="${x===mx?"":"lo"}" style="height:${x/mx*100}%"></span>${days[i]}</div>`).join("")}</div>
- <h3>Latest comments <small>moderate quickly</small></h3>
- <div class="card">${allC.map(c=>`<button class="row" data-p="${c.pid}"><div class="av" style="background:${U[c.uid].col}">${init(U[c.uid].name)}</div><div class="grow"><div class="t">${c.text}</div><div class="m">${U[c.uid].name} on ${P[c.pid].title}</div></div><div class="m">${ago(c.hrs)}</div></button>`).join("")||'<div class="empty">No comments</div>'}</div>
- <h3>Latest posted <small>newest first</small></h3>
- <div class="card">${latest.slice(0,st.n.dash).map(p=>postRow(p)).join("")}</div>${more("dash",latest.length)}`}
-function post(){const p=P[st.post],u=U[p.uid],cs=cmOf(p.id).sort((a,b)=>a.hrs-b.hrs),lk=U.filter(x=>(x.id*7+p.id)%3!==0);
- const body=st.pt==="c"?(cs.length?cs.map(c=>`<div class="cm"><div class="av" style="background:${U[c.uid].col}" data-u="${c.uid}">${init(U[c.uid].name)}</div><div class="grow"><div class="t" style="-webkit-line-clamp:1">${U[c.uid].name} <span class="m">· ${U[c.uid].loc} · ${ago(c.hrs)}</span></div><p>${c.text}</p></div><button class="btn out sm" data-dc="${c.id}">Delete</button></div>`).join(""):'<div class="empty">No comments on this post</div>'):lk.map(x=>`<button class="row" data-u="${x.id}"><div class="av" style="background:${x.col}">${init(x.name)}</div><div class="grow"><div class="t">${x.name}</div><div class="m">${x.loc}</div></div><span class="likes">♥</span></button>`).join("");
- return `<div class="card"><div class="hero" style="${thumb(p)}"><span class="tag ${p.type==="Reel"?"r":"k"}">${p.type}</span></div><div style="padding:12px"><div class="t" style="font-size:17px;-webkit-line-clamp:3">${p.title}</div><div class="m">Posted ${ago(p.hrs)}</div></div>
- <button class="row" data-u="${u.id}" style="border-top:1px solid var(--line)"><div class="av" style="background:${u.col}">${init(u.name)}</div><div class="grow"><div class="t">${u.name}</div><div class="m">${u.loc} · Joined ${u.joined}</div></div><span class="m">View user ›</span></button></div>
- <div class="grid" style="margin-top:8px">${stat("Likes",fmt(p.likes),"#B52A1C",IC.heart)}${stat("Comments",cs.length,"#0f766e",IC.chat)}${stat("Views",fmt(p.views),"#2b6cb0",IC.eye)}${stat("Shares",p.shares,"#c05621",IC.share)}</div>
- <h3>Engagement <small>tap a person to see details</small></h3>
- <div class="seg"><button class="${st.pt==="c"?"on":""}" data-pt="c">Comments (${cs.length})</button><button class="${st.pt==="l"?"on":""}" data-pt="l">Liked by (${lk.length})</button></div>
- <div class="card">${body}</div>
- <div class="act"><button class="btn red full" id="dp">${IC.del} Delete this ${p.type.toLowerCase()}</button></div>`}
-function users(){if(st.user!==null){const u=U[st.user],all=live().filter(p=>p.uid===u.id).sort((a,b)=>a.hrs-b.hrs),list=st.ut==="All"?all:all.filter(p=>p.type===st.ut),cc=CM.filter(c=>c.uid===u.id&&!S.dc.includes(c.id)).length;
- return `<div class="card prof"><div class="av" style="background:${u.col}">${init(u.name)}</div><div class="grow"><div class="t">${u.name}</div><div class="m">${u.loc} · Joined ${u.joined}</div></div></div>
- <div class="grid" style="margin-top:8px">${stat("Posts",all.length,"#B52A1C",IC.doc)}${stat("Likes got",fmt(all.reduce((s,p)=>s+p.likes,0)),"#c05621",IC.heart)}${stat("Comments made",cc,"#0f766e",IC.chat)}${stat("Views",fmt(all.reduce((s,p)=>s+p.views,0)),"#2b6cb0",IC.eye)}</div>
- <h3>Posted by ${u.name.split(" ")[0]} <small>latest first</small></h3>
- <div class="seg">${["All","Article","Reel"].map(t=>`<button class="${st.ut===t?"on":""}" data-ut="${t}">${t==="All"?"All":t+"s"}</button>`).join("")}</div>
- <div class="card">${list.length?list.slice(0,st.n.user).map(p=>postRow(p)).join(""):'<div class="empty">No posts yet</div>'}</div>${more("user",list.length)}`}
- const f=U.filter(u=>(u.name+u.loc).toLowerCase().includes(st.q.toLowerCase()));
- return `<input class="search" id="q" placeholder="Search users..." value="${st.q}"><h3>All users <small>${f.length} found</small></h3>
- <div class="card">${f.map(u=>`<button class="row" data-u="${u.id}"><div class="av" style="background:${u.col}">${init(u.name)}</div><div class="grow"><div class="t">${u.name}</div><div class="m">${u.loc}</div></div><div class="likes">${live().filter(p=>p.uid===u.id).length} posts ›</div></button>`).join("")||'<div class="empty">No users found</div>'}</div>`}
-function trend(){const l=live().filter(p=>p.type===st.tr).sort((a,b)=>b.likes-a.likes);
- return `<div class="seg">${["Article","Reel"].map(t=>`<button class="${st.tr===t?"on":""}" data-tr="${t}">Trending ${t}s</button>`).join("")}</div>
- <h3>Highest likes <small>tap to see likes and comments</small></h3><div class="card">${l.slice(0,st.n.tr).map((p,i)=>postRow(p,i+1)).join("")}</div>${more("tr",l.length)}`}
-function del(){const D=S.dp.slice().reverse();
- return `<h3>Deleted posts <small>${D.length} total</small></h3><div class="card">${D.slice(0,st.n.del).map(d=>{const p=P[d.id];return `<div class="row"><div class="th" style="${thumb(p)};filter:grayscale(1)"></div><div class="grow"><div class="t">${p.title}</div><div class="m"><span class="tag r">Admin</span>Deleted by <b>Admin</b></div><div class="m">${p.type} by ${U[p.uid].name} · ${d.reason}</div></div><button class="btn out sm" data-rs="${d.id}">Restore</button></div>`}).join("")||'<div class="empty">Nothing deleted yet. Deleted articles appear here.</div>'}</div>${more("del",D.length)}`}
-function render(){hdr();nav();$("main").innerHTML=st.post!==null?post():st.tab==="dash"?dash():st.tab==="users"?users():st.tab==="trend"?trend():del();const m=$("main");
- m.querySelectorAll(".more").forEach(b=>b.onclick=()=>{st.n[b.dataset.k]+=5;render()});
- m.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{if(st.user!==null)st.from=st.user;st.post=+b.dataset.p;st.pt="c";render();scrollTo(0,0)});
- m.querySelectorAll("[data-u]").forEach(b=>b.onclick=e=>{e.stopPropagation();st.post=null;st.tab="users";st.user=+b.dataset.u;st.ut="All";st.n.user=5;render();scrollTo(0,0)});
- m.querySelectorAll("[data-ut]").forEach(b=>b.onclick=()=>{st.ut=b.dataset.ut;st.n.user=5;render()});
- m.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>{st.tr=b.dataset.tr;st.n.tr=5;render()});
- m.querySelectorAll("[data-pt]").forEach(b=>b.onclick=()=>{st.pt=b.dataset.pt;render()});
- m.querySelectorAll("[data-dc]").forEach(b=>b.onclick=()=>{const id=+b.dataset.dc;sheet(`<h4>Delete this comment?</h4><p>It will be removed from the article for everyone.</p><div class="two"><button class="btn" id="no">Cancel</button><button class="btn red" id="yes">Delete comment</button></div>`);$("no").onclick=closeSheet;$("yes").onclick=()=>{S.dc.push(id);save();closeSheet();toast("Comment deleted");render()}});
- m.querySelectorAll("[data-rs]").forEach(b=>b.onclick=()=>{S.dp=S.dp.filter(d=>d.id!==+b.dataset.rs);save();toast("Post restored");render()});
- const dp=$("dp");if(dp)dp.onclick=()=>{const p=P[st.post];sheet(`<h4>Delete this ${p.type.toLowerCase()}?</h4><p>${p.title}<br>It will be hidden from readers and listed under Deleted. You can restore it later.</p><select id="rsn"><option>Fake news report</option><option>Duplicate post</option><option>Copyright claim</option><option>Policy violation</option></select><div class="two"><button class="btn" id="no">Cancel</button><button class="btn red" id="yes">Delete ${p.type.toLowerCase()}</button></div>`);$("no").onclick=closeSheet;$("yes").onclick=()=>{S.dp.push({id:p.id,reason:$("rsn").value});save();closeSheet();st.post=null;toast("Deleted and moved to Deleted tab");render();scrollTo(0,0)}};
- const q=$("q");if(q)q.oninput=()=>{st.q=q.value;const p=q.selectionStart;render();const n=$("q");n.focus();n.setSelectionRange(p,p)}}
+const PLAYS=`<svg viewBox="0 0 24 24" width="12" height="12" fill="#fff"><path d="M8 5l11 7-11 7z"/></svg>`;
+function media(p,big,grey){const im=IMG.length?IMG[p.id%IMG.length]:"";
+return `<div class="th${big?" big":""}${grey?" grey":""}" style="background-color:${COL[p.id%6]}">${p.type==="Reel"?PLAY:DOC}${im?`<img src="${im}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()">`:""}${p.type==="Reel"&&im?`<span class="pl">${PLAYS}</span>`:""}<em>${p.type==="Reel"?"REEL":"NEWS"}</em></div>`}
+const postRow=(p,rank)=>`<div class="row">${rank?`<div class="rk">${rank}</div>`:""}${media(p)}<div class="grow"><div class="t">${p.title}</div><div class="m"><span class="tag ${p.type==="Reel"?"r":""}">${p.type}</span>${U[p.uid].name} · ${ago(p.hrs)}</div></div><div class="likes">♥ ${fmt(p.likes)}</div></div>`;
+const dayOf=p=>Math.floor(p.hrs/24);
+const dt=d=>new Date(Date.now()-d*864e5);
+const dShort=d=>d===0?"Today":dt(d).toLocaleDateString("en-IN",{weekday:"short"});
+const dLong=d=>d===0?"Today":d===1?"Yesterday":dt(d).toLocaleDateString("en-IN",{weekday:"short",day:"numeric",month:"short"});
+function dayStats(d){const a=P.filter(p=>dayOf(p)===d).sort((x,y)=>x.hrs-y.hrs);return{d,a,art:a.filter(p=>p.type==="Article").length,reel:a.filter(p=>p.type==="Reel").length,likes:a.reduce((s,p)=>s+p.likes,0),views:a.reduce((s,p)=>s+p.views,0)}}
+const cmp=(n,m)=>{const d=n-m;return `<i class="${d<0?"dn":""}">${d>=0?"▲":"▼"} ${Math.abs(d)} vs yesterday</i>`};
+function dash(){
+const latest=[...P].sort((a,b)=>a.hrs-b.hrs);
+const S7=[6,5,4,3,2,1,0].map(dayStats),days=S7.map(x=>dShort(x.d)),v=S7.map(x=>x.a.length),mx=Math.max(...v,1);
+return `<div class="grid">
+<div class="card stat"><small>Total users</small><b>${U.length*312}</b><i>▲ 4.2% this week</i></div>
+<div class="card stat"><small>Articles</small><b>${P.filter(p=>p.type==="Article").length*41}</b><i>▲ 2.1%</i></div>
+<div class="card stat"><small>Reels</small><b>${P.filter(p=>p.type==="Reel").length*37}</b><i>▲ 8.6%</i></div>
+<div class="card stat"><small>Deleted</small><b>${D.length}</b><i class="dn">▼ needs review</i></div></div>
+<h3>Posts this week <small>last 7 days</small></h3>
+<div class="card bars">${v.map((x,i)=>`<div><b style="font-size:11px;color:#161616;margin-bottom:3px">${x}</b><span style="height:${x/mx*100}%"></span>${days[i]}</div>`).join("")}</div>
+<h3>Latest posted <small>newest first</small></h3>
+<div class="list">${latest.slice(0,st.n.dash).map(p=>postRow(p)).join("")}</div>${more("dash",latest.length)}`}
+function act(){
+const S=[0,1,2,3,4,5,6].map(dayStats),T=S[0],Y=S[1],W=[...S].reverse();
+const tot=S.reduce((s,x)=>s+x.a.length,0),art=S.reduce((s,x)=>s+x.art,0),reel=S.reduce((s,x)=>s+x.reel,0),lk=S.reduce((s,x)=>s+x.likes,0),vw=S.reduce((s,x)=>s+x.views,0);
+const mx=Math.max(...S.map(x=>x.a.length),1);
+const cur=S[st.day],list=st.af==="All"?cur.a:cur.a.filter(p=>p.type===st.af);
+return `<h3 style="margin-top:0">Posted today <small>${dt(0).toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short"})}</small></h3>
+<div class="grid">
+<div class="card stat"><small>Total posted</small><b>${T.a.length}</b>${cmp(T.a.length,Y.a.length)}</div>
+<div class="card stat"><small>Likes today</small><b>${fmt(T.likes)}</b><i>♥ on new posts</i></div>
+<div class="card stat"><small>Articles</small><b>${T.art}</b><i>${Y.art} yesterday</i></div>
+<div class="card stat"><small>Reels</small><b>${T.reel}</b><i>${Y.reel} yesterday</i></div></div>
+<h3>New today <small>${T.a.length} posts</small></h3>
+${T.a.length?`<div class="strip">${T.a.map(p=>`<div class="pv">${media(p,true)}<div class="bd"><div class="t">${p.title}</div><div class="m"><span class="tag ${p.type==="Reel"?"r":""}">${p.type}</span>${ago(p.hrs)}</div><div class="m">${U[p.uid].name} · ♥ ${fmt(p.likes)}</div></div></div>`).join("")}</div>`:'<div class="card"><div class="empty">Nothing posted today yet</div></div>'}
+<h3>Last 7 days <small>tap a day</small></h3>
+<div class="card"><div class="dayb">${W.map(x=>`<button data-d="${x.d}" class="${st.day===x.d?"on":""}"><span class="n">${x.a.length}</span><div class="stk"><span class="rl" style="height:${x.reel/mx*100}%"></span><span class="a" style="height:${x.art/mx*100}%"></span></div>${dShort(x.d)}</button>`).join("")}</div>
+<div class="legend"><span><b style="background:var(--red)"></b>Articles</span><span><b style="background:#222"></b>Reels</span></div></div>
+<div class="grid" style="margin-top:12px">
+<div class="card stat"><small>Posted (7 days)</small><b>${tot}</b><i>${art} articles · ${reel} reels</i></div>
+<div class="card stat"><small>Daily average</small><b>${(tot/7).toFixed(1)}</b><i>posts per day</i></div>
+<div class="card stat"><small>Total likes</small><b>${fmt(lk)}</b><i>last 7 days</i></div>
+<div class="card stat"><small>Total views</small><b>${fmt(vw)}</b><i>last 7 days</i></div></div>
+<h3>Posted on ${dLong(st.day)} <small>${cur.a.length} posts</small></h3>
+<div class="seg">${["All","Article","Reel"].map(t=>`<button class="${st.af===t?"on":""}" data-af="${t}">${t==="All"?"All":t+"s"}</button>`).join("")}</div>
+<div class="list">${list.length?list.slice(0,st.n.act).map(p=>postRow(p)).join(""):'<div class="card"><div class="empty">No posts on this day</div></div>'}</div>${more("act",list.length)}`}
+function users(){
+if(st.user!==null){
+const u=U[st.user],all=P.filter(p=>p.uid===u.id).sort((a,b)=>a.hrs-b.hrs);
+const list=st.ut==="All"?all:all.filter(p=>p.type===st.ut);
+return `<div class="card prof"><div class="av" style="background:${u.col}">${u.name.split(" ").map(w=>w[0]).join("")}</div><div class="grow"><div class="t">${u.name}</div><div class="m">${u.loc} · Joined ${u.joined}</div></div></div>
+<div class="grid" style="margin-top:12px"><div class="card stat"><small>Total posts</small><b>${all.length}</b></div><div class="card stat"><small>Total likes</small><b>${fmt(all.reduce((s,p)=>s+p.likes,0))}</b></div></div>
+<h3>Posted by ${u.name.split(" ")[0]} <small>latest first</small></h3>
+<div class="seg">${["All","Article","Reel"].map(t=>`<button class="${st.ut===t?"on":""}" data-ut="${t}">${t==="All"?"All":t+"s"}</button>`).join("")}</div>
+<div class="list">${list.length?list.slice(0,st.n.user).map(p=>postRow(p)).join(""):'<div class="empty">No posts yet</div>'}</div>${more("user",list.length)}`}
+const f=U.filter(u=>(u.name+u.loc).toLowerCase().includes(st.q.toLowerCase()));
+return `<input class="search" id="q" placeholder="Search users..." value="${st.q}">
+<h3>All users <small>${f.length} found</small></h3>
+<div class="list">${f.map(u=>{const c=P.filter(p=>p.uid===u.id).length;return `<button class="row" data-u="${u.id}"><div class="av" style="background:${u.col}">${u.name.split(" ").map(w=>w[0]).join("")}</div><div class="grow"><div class="t">${u.name}</div><div class="m">${u.loc}</div></div><div class="likes">${c} posts ›</div></button>`}).join("")||'<div class="empty">No users found</div>'}</div>`}
+function trend(){
+const l=P.filter(p=>p.type===st.tr).sort((a,b)=>b.likes-a.likes);
+return `<div class="seg">${["Article","Reel"].map(t=>`<button class="${st.tr===t?"on":""}" data-tr="${t}">Trending ${t}s</button>`).join("")}</div>
+<h3>Highest likes <small>${st.tr}s</small></h3>
+<div class="list">${l.slice(0,st.n.tr).map((p,i)=>postRow(p,i+1)).join("")}</div>${more("tr",l.length)}`}
+function del(){
+return `<h3 style="margin-top:4px">Deleted posts <small>${D.length} total</small></h3>
+<div class="list">${D.slice(0,st.n.del).map(d=>`<div class="row">${media({id:d.pid,type:d.type},false,true)}<div class="grow"><div class="t">${d.title}</div><div class="m"><span class="tag ${d.role==="Admin"?"r":d.role==="Moderator"?"":"g"}">${d.role}</span>Deleted by <b>${d.by}</b></div><div class="m">${d.type} by ${d.author} · ${d.reason} · ${ago(d.hrs)}</div></div></div>`).join("")}</div>${more("del",D.length)}`}
+function render(){
+hdr();nav();
+$("main").innerHTML=st.tab==="dash"?dash():st.tab==="act"?act():st.tab==="users"?users():st.tab==="trend"?trend():del();
+const m=$("main");
+m.querySelectorAll(".more").forEach(b=>b.onclick=()=>{st.n[b.dataset.k]+=5;render()});
+m.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{st.user=+b.dataset.u;st.ut="All";st.n.user=5;render();scrollTo(0,0)});
+m.querySelectorAll("[data-ut]").forEach(b=>b.onclick=()=>{st.ut=b.dataset.ut;st.n.user=5;render()});
+m.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{st.day=+b.dataset.d;st.n.act=5;render()});
+m.querySelectorAll("[data-af]").forEach(b=>b.onclick=()=>{st.af=b.dataset.af;st.n.act=5;render()});
+m.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>{st.tr=b.dataset.tr;st.n.tr=5;render()});
+const q=$("q");if(q)q.oninput=()=>{st.q=q.value;const p=q.selectionStart;render();const n=$("q");n.focus();n.setSelectionRange(p,p)};
+}
 render();
+/* Pull preview images that already exist in index.html (same folder) */
+(async function(){
+try{
+const r=await fetch("index.html",{cache:"no-store"});if(!r.ok)return;
+const t=await r.text(),set=new Set(),base=location.href;
+const ext="(?:jpe?g|png|webp|gif|avif)";
+const re=new RegExp("(?:src|data-src|poster|content)\\s*=\\s*[\"']([^\"']+\\."+ext+"(?:\\?[^\"']*)?)[\"']|url\\([\"']?([^\"')]+\\."+ext+"(?:\\?[^\"')]*)?)[\"']?\\)|[\"'](https?:\\/\\/[^\"'\\s]+\\."+ext+"(?:\\?[^\"'\\s]*)?)[\"']|[\"'](https?:\\/\\/(?:images\\.unsplash\\.com|picsum\\.photos|i\\.ytimg\\.com|img\\.youtube\\.com)[^\"'\\s)]+)[\"']","gi");
+let m;while((m=re.exec(t))){const u=m[1]||m[2]||m[3]||m[4];if(!u||/logo|icon|favicon|sprite|avatar|placeholder/i.test(u))continue;try{set.add(new URL(u,base).href)}catch(e){}}
+if(set.size){IMG=[...set];render()}
+}catch(e){}
+})();
 </script>
 </body>
 </html>
